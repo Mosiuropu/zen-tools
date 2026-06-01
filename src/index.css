@@ -16,6 +16,17 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .animate-zen-pendulum {
+    animation: zen-swing 2s ease-in-out infinite;
+    transform-origin: top center;
+  }
+}
+
+@keyframes zen-swing {
+  0% { transform: rotate(15deg); }
+  50% { transform: rotate(-15deg); }
+  100% { transform: rotate(15deg); }
 }
 
 :root {

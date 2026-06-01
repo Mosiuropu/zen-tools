@@ -24,6 +24,7 @@ import ZenNotes from './components/ZenNotes';
 import ZenPriorities from './components/ZenPriorities';
 import ZenBreathing from './components/ZenBreathing';
 import ZenSoundscapes from './components/ZenSoundscapes';
+import ZenClock from './components/ZenClock';
 
 function App() {
   const [activeTab, setActiveTab] = useState('units');
@@ -51,6 +52,7 @@ function App() {
     { id: 'priorities', label: 'Priorities', icon: <Target className="w-5 h-5" /> },
     { id: 'breathing', label: 'Breathing', icon: <Wind className="w-5 h-5" /> },
     { id: 'sounds', label: 'Sounds', icon: <Music className="w-5 h-5" /> },
+    { id: 'clock', label: 'Clock', icon: <Clock className="w-5 h-5" /> },
     { id: 'countdown', label: 'Timer', icon: <Timer className="w-5 h-5" /> },
   ];
 
@@ -119,6 +121,7 @@ function App() {
             {activeTab === 'priorities' && "Focus on what truly matters."}
             {activeTab === 'breathing' && "Take a moment to reset."}
             {activeTab === 'sounds' && "Curate your ambient workspace."}
+            {activeTab === 'clock' && "Master your current moment."}
           </h2>
           <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto">
             A tool built for people who value time and clarity. No ads, no trackers, just clean functionality.
@@ -135,6 +138,7 @@ function App() {
           {activeTab === 'priorities' && <ZenPriorities />}
           {activeTab === 'breathing' && <ZenBreathing />}
           {activeTab === 'sounds' && <ZenSoundscapes />}
+          {activeTab === 'clock' && <ZenClock />}
         </div>
       </main>
 

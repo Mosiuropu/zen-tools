@@ -13,6 +13,7 @@ A minimalist, ad-free, and high-performance collection of web utilities designed
 - **Zen Notes:** Distraction-free markdown sanctuary with Focus Mode and local auto-save.
 - **Daily Priorities:** Extreme focus with the **Rule of 3** — exactly three high-impact tasks to master your day.
 - **Zen Breathing:** Visual meditation guides for Box Breathing and Stress Relief (4-7-8).
+- **Zen Clock:** A combined digital and analog clock featuring a swinging pendulum to visualize the rhythmic flow of time.
 - **Synthetic Soundscapes:** Infinite, algorithmically generated ambient noise (Rain, Ocean, Forest, White Noise) using the Web Audio API.
 - **Countdown Timer:** A distraction-free, beautiful live countdown for your projects and milestones.
 - **Privacy First:** No ads, no tracking scripts, no bloat.

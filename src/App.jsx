@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Ruler, Calendar, Timer, Github, Shield, Sparkles } from 'lucide-react';
+import { Ruler, Calendar, Timer, Github, Shield, Sparkles, CheckCircle2 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
 import CountdownTimer from './components/CountdownTimer';
+import HabitTracker from './components/HabitTracker';
 
 function App() {
   const [activeTab, setActiveTab] = useState('units');
@@ -11,6 +12,7 @@ function App() {
     { id: 'units', label: 'Unit Converter', icon: <Ruler className="w-5 h-5" /> },
     { id: 'age', label: 'Age Calculator', icon: <Calendar className="w-5 h-5" /> },
     { id: 'countdown', label: 'Countdown', icon: <Timer className="w-5 h-5" /> },
+    { id: 'habits', label: 'Habit Tracker', icon: <CheckCircle2 className="w-5 h-5" /> },
   ];
 
   return (
@@ -64,6 +66,7 @@ function App() {
             {activeTab === 'units' && "Convert units with zero friction."}
             {activeTab === 'age' && "Compare ages with precision."}
             {activeTab === 'countdown' && "Track your next big milestone."}
+            {activeTab === 'habits' && "Master your daily routines."}
           </h2>
           <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto">
             A tool built for people who value time and clarity. No ads, no trackers, just clean functionality.
@@ -73,6 +76,7 @@ function App() {
         {activeTab === 'units' && <UnitConverter />}
         {activeTab === 'age' && <AgeCalculator />}
         {activeTab === 'countdown' && <CountdownTimer />}
+        {activeTab === 'habits' && <HabitTracker />}
       </main>
 
       {/* Mobile Nav */}

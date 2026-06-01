@@ -7,6 +7,7 @@ A minimalist, ad-free, and high-performance collection of web utilities designed
 ## ✨ Features
 
 - **Unit Converter:** Fast, real-time conversion for Length, Weight, Temperature, and Data Size. Swap units with one click.
+- **Habit Mastery:** A world-class habit tracker with dual views (Daily Checklist & Consistency Grid). Includes GitHub-style heatmaps and streak tracking.
 - **Age & Date Calculator:** Calculate exact durations between dates. Supports **Multiple Person Comparison** to see age differences side-by-side.
 - **Countdown Timer:** A distraction-free, beautiful live countdown for your projects and milestones.
 - **Privacy First:** No ads, no tracking scripts, no bloat.

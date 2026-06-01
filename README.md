@@ -1,6 +1,9 @@
 # Zen Tools 🧘‍♂️
 
-A minimalist, ad-free, and high-performance collection of web utilities designed for clarity and speed. Built for people who are tired of cluttered, tracker-heavy conversion websites.
+**Live Site:** [https://Mosiuropu.github.io/zen-tools/](https://Mosiuropu.github.io/zen-tools/)
+
+A minimalist, ad-free, and high-performance collection of web utilities designed for clarity and speed.
+ Built for people who are tired of cluttered, tracker-heavy conversion websites.
 
 ![Zen Tools Banner](https://raw.githubusercontent.com/Mosiuropu/zen-tools/main/public/banner.png) *(Note: Add your own banner image later)*
 

@@ -6,8 +6,10 @@ A minimalist, ad-free, and high-performance collection of web utilities designed
 
 ## ✨ Features
 
-- **Unit Converter:** Fast, real-time conversion for Length, Weight, Temperature, and Data Size. Swap units with one click.
+- **Zen Unit Converter:** Fast, real-time conversion for Length, Weight, Temperature, and Data Size. Swap units with one click.
 - **Habit Mastery:** A world-class habit tracker with dual views (Daily Checklist & Consistency Grid). Includes GitHub-style heatmaps and streak tracking.
+- **Zen Focus:** A premium Pomodoro timer with auto-transitions, session tracking, and ambient notification sounds.
+- **Zen Notes:** A distraction-free markdown sanctuary for your thoughts. Features Focus Mode, typewriter-like centering, and local auto-save.
 - **Age & Date Calculator:** Calculate exact durations between dates. Supports **Multiple Person Comparison** to see age differences side-by-side.
 - **Countdown Timer:** A distraction-free, beautiful live countdown for your projects and milestones.
 - **Privacy First:** No ads, no tracking scripts, no bloat.

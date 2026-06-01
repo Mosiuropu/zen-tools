@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import { Ruler, Calendar, Timer, Github, Shield, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Ruler, Calendar, Timer, Github, Shield, Sparkles, CheckCircle2, Brain, FileText } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
 import CountdownTimer from './components/CountdownTimer';
 import HabitTracker from './components/HabitTracker';
+import ZenFocus from './components/ZenFocus';
+import ZenNotes from './components/ZenNotes';
 
 function App() {
   const [activeTab, setActiveTab] = useState('units');
 
   const tabs = [
-    { id: 'units', label: 'Unit Converter', icon: <Ruler className="w-5 h-5" /> },
-    { id: 'age', label: 'Age Calculator', icon: <Calendar className="w-5 h-5" /> },
-    { id: 'countdown', label: 'Countdown', icon: <Timer className="w-5 h-5" /> },
-    { id: 'habits', label: 'Habit Tracker', icon: <CheckCircle2 className="w-5 h-5" /> },
+    { id: 'units', label: 'Units', icon: <Ruler className="w-5 h-5" /> },
+    { id: 'age', label: 'Age', icon: <Calendar className="w-5 h-5" /> },
+    { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-5 h-5" /> },
+    { id: 'focus', label: 'Focus', icon: <Brain className="w-5 h-5" /> },
+    { id: 'notes', label: 'Notes', icon: <FileText className="w-5 h-5" /> },
+    { id: 'countdown', label: 'Timer', icon: <Timer className="w-5 h-5" /> },
   ];
 
   return (
@@ -30,12 +34,12 @@ function App() {
             </div>
           </div>
 
-          <nav className="hidden md:flex bg-slate-900/50 p-1.5 rounded-2xl border border-slate-800">
+          <nav className="hidden lg:flex bg-slate-900/50 p-1.5 rounded-2xl border border-slate-800">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${
                   activeTab === tab.id
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20'
                     : 'text-slate-400 hover:text-slate-100'
@@ -67,6 +71,8 @@ function App() {
             {activeTab === 'age' && "Compare ages with precision."}
             {activeTab === 'countdown' && "Track your next big milestone."}
             {activeTab === 'habits' && "Master your daily routines."}
+            {activeTab === 'focus' && "Enter a state of deep focus."}
+            {activeTab === 'notes' && "Capture your best thoughts."}
           </h2>
           <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto">
             A tool built for people who value time and clarity. No ads, no trackers, just clean functionality.
@@ -77,22 +83,24 @@ function App() {
         {activeTab === 'age' && <AgeCalculator />}
         {activeTab === 'countdown' && <CountdownTimer />}
         {activeTab === 'habits' && <HabitTracker />}
+        {activeTab === 'focus' && <ZenFocus />}
+        {activeTab === 'notes' && <ZenNotes />}
       </main>
 
       {/* Mobile Nav */}
-      <nav className="md:hidden fixed bottom-6 left-6 right-6 bg-slate-900/90 backdrop-blur-xl border border-slate-800 p-2 rounded-3xl flex justify-around shadow-2xl z-50">
+      <nav className="lg:hidden fixed bottom-6 left-6 right-6 bg-slate-900/90 backdrop-blur-xl border border-slate-800 p-2 rounded-3xl flex justify-between shadow-2xl z-50 overflow-x-auto no-scrollbar">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-center gap-1 p-3 rounded-2xl transition-all ${
+            className={`flex flex-col items-center gap-1 p-3 min-w-[64px] rounded-2xl transition-all ${
               activeTab === tab.id
                 ? 'bg-blue-600 text-white'
                 : 'text-slate-500'
             }`}
           >
             {tab.icon}
-            <span className="text-[10px] font-bold uppercase tracking-tighter">{tab.label.split(' ')[0]}</span>
+            <span className="text-[10px] font-bold uppercase tracking-tighter">{tab.label}</span>
           </button>
         ))}
       </nav>

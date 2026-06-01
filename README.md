@@ -6,11 +6,14 @@ A minimalist, ad-free, and high-performance collection of web utilities designed
 
 ## ✨ Features
 
-- **Zen Unit Converter:** Fast, real-time conversion for Length, Weight, Temperature, and Data Size. Swap units with one click.
-- **Habit Mastery:** A world-class habit tracker with dual views (Daily Checklist & Consistency Grid). Includes GitHub-style heatmaps and streak tracking.
-- **Zen Focus:** A premium Pomodoro timer with auto-transitions, session tracking, and ambient notification sounds.
-- **Zen Notes:** A distraction-free markdown sanctuary for your thoughts. Features Focus Mode, typewriter-like centering, and local auto-save.
-- **Age & Date Calculator:** Calculate exact durations between dates. Supports **Multiple Person Comparison** to see age differences side-by-side.
+- **Dual Theme System:** Seamlessly switch between a premium **Deep Dark** and a crisp, clean **Zen Light** mode.
+- **Zen Unit Converter:** Fast, real-time conversion for Length, Weight, Temperature, and Data Size.
+- **Habit Mastery:** A world-class habit tracker with daily checklist, consistency grids, and heatmaps.
+- **Zen Focus:** Premium Pomodoro timer with auto-transitions and ambient audible cues.
+- **Zen Notes:** Distraction-free markdown sanctuary with Focus Mode and local auto-save.
+- **Daily Priorities:** Extreme focus with the **Rule of 3** — exactly three high-impact tasks to master your day.
+- **Zen Breathing:** Visual meditation guides for Box Breathing and Stress Relief (4-7-8).
+- **Synthetic Soundscapes:** Infinite, algorithmically generated ambient noise (Rain, Ocean, Forest, White Noise) using the Web Audio API.
 - **Countdown Timer:** A distraction-free, beautiful live countdown for your projects and milestones.
 - **Privacy First:** No ads, no tracking scripts, no bloat.
 - **Dark Mode by Default:** Easy on the eyes with a premium deep dark aesthetic.

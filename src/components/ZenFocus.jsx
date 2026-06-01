@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Coffee, Brain, Timer, Volume2, VolumeX, Settings2 } from 'lucide-react';
+import { Play, Pause, RotateCcw, Brain, Volume2, VolumeX, Settings2 } from 'lucide-react';
 
 const MODES = {
-  focus: { label: 'Focus', minutes: 25, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-  short: { label: 'Short Break', minutes: 5, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-  long: { label: 'Long Break', minutes: 15, color: 'text-violet-500', bg: 'bg-violet-500/10' }
+  focus: { label: 'Focus', minutes: 25, color: 'text-blue-600 dark:text-blue-500', bg: 'bg-blue-600/10 dark:bg-blue-500/10', border: 'border-blue-600 dark:border-blue-500' },
+  short: { label: 'Short Break', minutes: 5, color: 'text-emerald-600 dark:text-emerald-500', bg: 'bg-emerald-600/10 dark:bg-emerald-500/10', border: 'border-emerald-600 dark:border-emerald-500' },
+  long: { label: 'Long Break', minutes: 15, color: 'text-violet-600 dark:text-violet-500', bg: 'bg-violet-600/10 dark:bg-violet-500/10', border: 'border-violet-600 dark:border-violet-500' }
 };
 
 export default function ZenFocus() {
@@ -87,7 +87,7 @@ export default function ZenFocus() {
             className={`px-6 py-2 rounded-2xl font-bold text-sm transition-all ${
               mode === key 
                 ? `${data.bg} ${data.color}` 
-                : 'bg-slate-900 text-slate-500 hover:text-slate-300'
+                : 'bg-white dark:bg-slate-900 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 shadow-sm border border-slate-100 dark:border-slate-800'
             }`}
           >
             {data.label}
@@ -95,9 +95,9 @@ export default function ZenFocus() {
         ))}
       </div>
 
-      <div className={`bg-slate-900 border-4 ${MODES[mode].color.replace('text', 'border')} border-opacity-20 rounded-[4rem] p-16 shadow-2xl flex flex-col items-center space-y-10 transition-all duration-500`}>
+      <div className={`bg-white dark:bg-slate-900 border-4 ${MODES[mode].border} border-opacity-20 rounded-[4rem] p-16 shadow-2xl flex flex-col items-center space-y-10 transition-all duration-500`}>
         <div className="text-center space-y-2">
-          <div className="text-9xl font-black text-white tabular-nums tracking-tighter">
+          <div className="text-9xl font-black text-slate-900 dark:text-white tabular-nums tracking-tighter">
             {formatTime(timeLeft)}
           </div>
           <p className={`font-bold uppercase tracking-[0.3em] text-sm ${MODES[mode].color}`}>
@@ -108,7 +108,7 @@ export default function ZenFocus() {
         <div className="flex items-center gap-8">
           <button
             onClick={resetTimer}
-            className="p-4 rounded-3xl bg-slate-950 text-slate-600 hover:text-slate-100 hover:bg-slate-800 transition-all"
+            className="p-4 rounded-3xl bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
           >
             <RotateCcw className="w-8 h-8" />
           </button>
@@ -117,7 +117,7 @@ export default function ZenFocus() {
             onClick={toggleTimer}
             className={`w-24 h-24 rounded-full flex items-center justify-center transition-all active:scale-90 shadow-2xl ${
               isActive 
-                ? 'bg-slate-800 text-white' 
+                ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white' 
                 : 'bg-blue-600 text-white hover:bg-blue-500 shadow-blue-900/40'
             }`}
           >
@@ -126,7 +126,7 @@ export default function ZenFocus() {
 
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-4 rounded-3xl bg-slate-950 text-slate-600 hover:text-slate-100 hover:bg-slate-800 transition-all"
+            className="p-4 rounded-3xl bg-slate-50 dark:bg-slate-950 text-slate-400 dark:text-slate-600 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
           >
             {soundEnabled ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
           </button>
@@ -134,30 +134,30 @@ export default function ZenFocus() {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 flex items-center gap-4">
-          <div className="p-3 bg-blue-500/10 rounded-2xl text-blue-500">
+        <div className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex items-center gap-4 shadow-sm">
+          <div className="p-3 bg-blue-600/10 dark:bg-blue-500/10 rounded-2xl text-blue-600 dark:text-blue-500">
             <Brain className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-2xl font-black text-white">{sessionCount}</div>
-            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Total Pomodoros</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white">{sessionCount}</div>
+            <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Total Pomodoros</div>
           </div>
         </div>
 
         <button
           onClick={() => setAutoStart(!autoStart)}
-          className={`bg-slate-900/50 border rounded-3xl p-6 flex items-center justify-between transition-all ${autoStart ? 'border-blue-500/50' : 'border-slate-800'}`}
+          className={`bg-white dark:bg-slate-900/50 border rounded-3xl p-6 flex items-center justify-between transition-all shadow-sm ${autoStart ? 'border-blue-600/50 dark:border-blue-500/50' : 'border-slate-200 dark:border-slate-800'}`}
         >
           <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-2xl ${autoStart ? 'bg-blue-500/20 text-blue-400' : 'bg-slate-950 text-slate-700'}`}>
+            <div className={`p-3 rounded-2xl ${autoStart ? 'bg-blue-600/20 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400' : 'bg-slate-50 dark:bg-slate-950 text-slate-300 dark:text-slate-700'}`}>
               <Settings2 className="w-6 h-6" />
             </div>
             <div className="text-left">
-              <div className={`text-sm font-bold ${autoStart ? 'text-white' : 'text-slate-500'}`}>Auto-Transition</div>
-              <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{autoStart ? 'Enabled' : 'Disabled'}</div>
+              <div className={`text-sm font-bold ${autoStart ? 'text-slate-900 dark:text-white' : 'text-slate-400 dark:text-slate-500'}`}>Auto-Transition</div>
+              <div className="text-[10px] font-bold uppercase tracking-widest text-slate-300 dark:text-slate-600">{autoStart ? 'Enabled' : 'Disabled'}</div>
             </div>
           </div>
-          <div className={`w-10 h-6 rounded-full p-1 transition-all ${autoStart ? 'bg-blue-600' : 'bg-slate-800'}`}>
+          <div className={`w-10 h-6 rounded-full p-1 transition-all ${autoStart ? 'bg-blue-600' : 'bg-slate-200 dark:bg-slate-800'}`}>
             <div className={`w-4 h-4 bg-white rounded-full transition-all ${autoStart ? 'translate-x-4' : 'translate-x-0'}`} />
           </div>
         </button>

@@ -113,8 +113,8 @@ export default function UnitConverter() {
             onClick={() => setCategory(key)}
             className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${
               category === key 
-                ? 'bg-blue-600/10 border-blue-500 text-blue-400' 
-                : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                ? 'bg-blue-600/10 border-blue-500 text-blue-600 dark:text-blue-400' 
+                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             {data.icon}
@@ -123,7 +123,7 @@ export default function UnitConverter() {
         ))}
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
         <div className="grid md:grid-cols-[1fr,auto,1fr] gap-4 items-end">
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">From</label>
@@ -132,12 +132,12 @@ export default function UnitConverter() {
                 type="number"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all dark:text-white"
               />
               <select
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-900 border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-slate-300"
               >
                 {units[category].custom 
                   ? units[category].units.map(u => <option key={u} value={u}>{u}</option>)
@@ -149,7 +149,7 @@ export default function UnitConverter() {
 
           <button 
             onClick={swapUnits}
-            className="p-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 transition-colors mb-1 shadow-lg"
+            className="p-3 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 transition-colors mb-1 shadow-lg"
           >
             <Repeat className="w-5 h-5" />
           </button>
@@ -157,13 +157,13 @@ export default function UnitConverter() {
           <div className="space-y-2">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">To</label>
             <div className="relative">
-              <div className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-lg min-h-[54px] flex items-center">
+              <div className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 text-lg min-h-[54px] flex items-center dark:text-white font-bold">
                 {result || '0'}
               </div>
               <select
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-900 border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-slate-900 border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-slate-300"
               >
                 {units[category].custom 
                   ? units[category].units.map(u => <option key={u} value={u}>{u}</option>)

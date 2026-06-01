@@ -4,12 +4,8 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 font-sans;
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-sans transition-colors duration-300;
   }
-}
-
-:root {
-  color-scheme: dark;
 }
 
 @layer utilities {
@@ -20,4 +16,8 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+:root {
+  color-scheme: light dark;
 }

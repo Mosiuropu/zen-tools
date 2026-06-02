@@ -113,8 +113,8 @@ export default function UnitConverter() {
             onClick={() => setCategory(key)}
             className={`flex flex-col items-center justify-center p-4 rounded-md border-2 transition-all ${
               category === key 
-                ? 'bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-card-dark)]/10 border-orange-500 text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)]' 
-                : 'bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)] hover:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:hover:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)]'
+                ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/10 border-orange-500 text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]' 
+                : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:hover:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]'
             }`}
           >
             {data.icon}
@@ -123,21 +123,21 @@ export default function UnitConverter() {
         ))}
       </div>
 
-      <div className="bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md p-8 shadow-2xl space-y-6">
+      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md p-8 shadow-2xl space-y-6">
         <div className="grid md:grid-cols-[1fr,auto,1fr] gap-4 items-end">
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 ml-1">From</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 ml-1">From</label>
             <div className="relative">
               <input
                 type="number"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="w-full bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-stone-900 dark:focus:ring-stone-100/50 transition-all dark:text-[var(--color-claude-text-dark)]"
+                className="w-full bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-stone-900 dark:focus:ring-stone-100/50 transition-all dark:text-[var(--color-zen-text-dark)]"
               />
               <select
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-[var(--color-claude-text-dark)]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-[var(--color-zen-text-dark)]"
               >
                 {units[category].custom 
                   ? units[category].units.map(u => <option key={u} value={u}>{u}</option>)
@@ -149,21 +149,21 @@ export default function UnitConverter() {
 
           <button 
             onClick={swapUnits}
-            className="p-3 rounded-md bg-[var(--color-claude-border-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-border-dark)] hover:bg-[var(--color-claude-border-light)] dark:bg-[var(--color-claude-border-dark)] dark:hover:bg-[var(--color-claude-border-light)] dark:hover:bg-[var(--color-claude-border-dark)] text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)] transition-colors mb-1 shadow-sm"
+            className="p-3 rounded-md bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] hover:bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)] dark:hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)] text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] transition-colors mb-1 shadow-sm"
           >
             <Repeat className="w-5 h-5" />
           </button>
 
           <div className="space-y-2">
-            <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 ml-1">To</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 ml-1">To</label>
             <div className="relative">
-              <div className="w-full bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md px-4 py-3 text-sm min-h-[54px] flex items-center dark:text-[var(--color-claude-text-dark)] font-semibold">
+              <div className="w-full bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md px-4 py-3 text-sm min-h-[54px] flex items-center dark:text-[var(--color-zen-text-dark)] font-semibold">
                 {result || '0'}
               </div>
               <select
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-[var(--color-claude-text-dark)]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-[var(--color-zen-text-dark)]"
               >
                 {units[category].custom 
                   ? units[category].units.map(u => <option key={u} value={u}>{u}</option>)

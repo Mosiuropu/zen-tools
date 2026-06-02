@@ -37,13 +37,13 @@ export default function ZenPriorities() {
   return (
     <div className="max-w-2xl mx-auto space-y-12 animate-in slide-in-from-bottom-8 duration-700">
       <div className="text-center space-y-4">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-claude-accent-primary)]">The Rule of Three</h3>
-        <p className="text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)] max-w-md mx-auto">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-zen-accent-primary)]">The Rule of Three</h3>
+        <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] max-w-md mx-auto">
           Choose exactly three high-impact tasks. Don't add more until one is finished.
         </p>
       </div>
 
-      <div className="bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-10">
+      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-10">
         <form onSubmit={addTask} className="relative">
           <input
             type="text"
@@ -51,7 +51,7 @@ export default function ZenPriorities() {
             onChange={(e) => setInputValue(e.target.value)}
             disabled={tasks.length >= 3}
             placeholder={tasks.length >= 3 ? "List is full. Finish a task first." : "What is your next priority?"}
-            className="w-full bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md px-6 py-5 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 dark:focus:ring-stone-100/50 transition-all disabled:opacity-50 placeholder-stone-400 dark:placeholder-stone-700"
+            className="w-full bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md px-6 py-5 text-base font-semibold focus:outline-none focus:ring-2 focus:ring-stone-900 dark:focus:ring-stone-100/50 transition-all disabled:opacity-50 placeholder-stone-400 dark:placeholder-stone-700"
           />
           <button
             type="submit"
@@ -68,24 +68,24 @@ export default function ZenPriorities() {
               key={task.id}
               className={`group flex items-center justify-between p-6 rounded-[2rem] border-2 transition-all ${
                 task.completed 
-                  ? 'bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)]/50 border-transparent opacity-50' 
-                  : 'bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)] border-stone-100 dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] hover:border-orange-500/30'
+                  ? 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)]/50 border-transparent opacity-50' 
+                  : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] border-stone-100 dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] hover:border-orange-500/30'
               }`}
             >
               <div className="flex items-center gap-6">
                 <button
                   onClick={() => toggleTask(task.id)}
-                  className={`transition-all active:scale-75 ${task.completed ? 'text-emerald-500' : 'text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)] hover:text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:hover:text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]'}`}
+                  className={`transition-all active:scale-75 ${task.completed ? 'text-emerald-500' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]'}`}
                 >
                   {task.completed ? <CheckCircle2 className="w-10 h-10" /> : <Circle className="w-10 h-10" />}
                 </button>
-                <span className={`text-base md:text-sm font-semibold tracking-tight transition-all ${task.completed ? 'line-through text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-muted-dark)]' : 'text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)]'}`}>
+                <span className={`text-base md:text-sm font-semibold tracking-tight transition-all ${task.completed ? 'line-through text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)]' : 'text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]'}`}>
                   {task.text}
                 </span>
               </div>
               <button
                 onClick={() => removeTask(task.id)}
-                className="p-3 text-stone-200 dark:text-[var(--color-claude-text-dark)] hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
+                className="p-3 text-stone-200 dark:text-[var(--color-zen-text-dark)] hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
               >
                 <Trash2 className="w-6 h-6" />
               </button>
@@ -100,7 +100,7 @@ export default function ZenPriorities() {
           )}
         </div>
 
-        <div className="pt-6 border-t border-stone-100 dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] flex justify-between items-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)]">
+        <div className="pt-6 border-t border-stone-100 dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] flex justify-between items-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">
           <span>{tasks.filter(t => t.completed).length} / 3 Completed</span>
           <span>{3 - tasks.length} Slots Remaining</span>
         </div>

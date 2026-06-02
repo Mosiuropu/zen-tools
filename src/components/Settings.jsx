@@ -47,23 +47,23 @@ const Settings = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] rounded-md p-8 border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] shadow-sm shadow-stone-200/50 dark:shadow-none">
+      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] rounded-md p-8 border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] shadow-sm shadow-stone-200/50 dark:shadow-none">
         
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-orange-100 dark:bg-orange-900/30 text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)] rounded-md">
+          <div className="p-3 bg-orange-100 dark:bg-orange-900/30 text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] rounded-md">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)]">Data Management</h3>
-            <p className="text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)]">Your data never leaves your device. Manage your local storage here.</p>
+            <h3 className="text-sm font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]">Data Management</h3>
+            <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)]">Your data never leaves your device. Manage your local storage here.</p>
           </div>
         </div>
 
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-border-dark)]/50 rounded-md border border-stone-100 dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)]">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)]/50 rounded-md border border-stone-100 dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]">
             <div>
-              <h4 className="font-semibold text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)] text-sm">Export Data</h4>
-              <p className="text-sm text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)] mt-1">Download all your habits, notes, and settings as a JSON file.</p>
+              <h4 className="font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] text-sm">Export Data</h4>
+              <p className="text-sm text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] mt-1">Download all your habits, notes, and settings as a JSON file.</p>
             </div>
             <button 
               onClick={handleExport}
@@ -74,10 +74,10 @@ const Settings = () => {
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-border-dark)]/50 rounded-md border border-stone-100 dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)]">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)]/50 rounded-md border border-stone-100 dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]">
             <div>
-              <h4 className="font-semibold text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)] text-sm">Import Data</h4>
-              <p className="text-sm text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)] mt-1">Restore your data from a previous JSON backup file.</p>
+              <h4 className="font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] text-sm">Import Data</h4>
+              <p className="text-sm text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] mt-1">Restore your data from a previous JSON backup file.</p>
             </div>
             <div className="w-full sm:w-auto relative">
               <input 
@@ -87,7 +87,7 @@ const Settings = () => {
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 title="Select backup file"
               />
-              <button className="flex items-center gap-2 px-6 py-3 bg-[var(--color-claude-border-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-border-dark)] hover:bg-[var(--color-claude-border-light)] dark:hover:bg-[var(--color-claude-border-dark)] dark:hover:bg-[var(--color-claude-border-light)] dark:hover:bg-[var(--color-claude-border-dark)] text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-muted-dark)] font-semibold rounded-md transition-all w-full sm:w-auto justify-center">
+              <button className="flex items-center gap-2 px-6 py-3 bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)] dark:hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)] text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)] font-semibold rounded-md transition-all w-full sm:w-auto justify-center">
                 <Upload className="w-5 h-5" />
                 Import Backup
               </button>
@@ -101,15 +101,15 @@ const Settings = () => {
             </div>
           )}
 
-          <div className="mt-12 pt-8 border-t border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)]">
+          <div className="mt-12 pt-8 border-t border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]">
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
               <div>
                 <h4 className="font-semibold text-red-600 dark:text-red-400 text-sm">Danger Zone</h4>
-                <p className="text-sm text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)] mt-1">Permanently delete all local data from this browser.</p>
+                <p className="text-sm text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] mt-1">Permanently delete all local data from this browser.</p>
               </div>
               <button 
                 onClick={handleClear}
-                className="flex items-center gap-2 px-6 py-3 bg-red-100 dark:bg-red-900/20 hover:bg-red-200 dark:hover:bg-[var(--color-claude-border-dark)]/40 text-red-700 dark:text-red-400 font-semibold rounded-md transition-all w-full sm:w-auto justify-center border border-red-200 dark:border-red-900/50"
+                className="flex items-center gap-2 px-6 py-3 bg-red-100 dark:bg-red-900/20 hover:bg-red-200 dark:hover:bg-[var(--color-zen-border-dark)]/40 text-red-700 dark:text-red-400 font-semibold rounded-md transition-all w-full sm:w-auto justify-center border border-red-200 dark:border-red-900/50"
               >
                 <Trash2 className="w-5 h-5" />
                 Clear All Data

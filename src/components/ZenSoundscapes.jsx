@@ -105,8 +105,8 @@ export default function ZenSoundscapes() {
   return (
     <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-700">
       <div className="text-center space-y-4">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-claude-accent-primary)]">Synthetic Zen</h3>
-        <p className="text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)]0 dark:text-[var(--color-claude-text-dark)] max-w-md mx-auto">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-zen-accent-primary)]">Synthetic Zen</h3>
+        <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] max-w-md mx-auto">
           Pure, algorithmically generated soundscapes. No loops, no gaps, just infinite focus.
         </p>
       </div>
@@ -119,10 +119,10 @@ export default function ZenSoundscapes() {
             className={`flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 transition-all group ${
               activeSound === sound.id 
                 ? 'zen-btn-primary border-orange-500 shadow-sm shadow-orange-900/40 scale-105' 
-                : 'bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)] hover:border-orange-500/50 hover:text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)] dark:hover:text-stone-200'
+                : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:border-orange-500/50 hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] dark:hover:text-stone-200'
             }`}
           >
-            <div className={`p-4 rounded-md mb-4 transition-all ${activeSound === sound.id ? 'bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-card-dark)]/20' : 'bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)] group-hover:scale-110'}`}>
+            <div className={`p-4 rounded-md mb-4 transition-all ${activeSound === sound.id ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/20' : 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] group-hover:scale-110'}`}>
               {React.cloneElement(sound.icon, { className: "w-8 h-8" })}
             </div>
             <span className="font-semibold text-sm tracking-tight">{sound.name}</span>
@@ -130,24 +130,24 @@ export default function ZenSoundscapes() {
         ))}
       </div>
 
-      <div className="bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-card-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] dark:border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
+      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-6">
-             <div className={`p-5 rounded-md ${activeSound ? 'zen-btn-primary animate-pulse' : 'bg-[var(--color-claude-border-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-bg-dark)] text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)]'}`}>
+             <div className={`p-5 rounded-md ${activeSound ? 'zen-btn-primary animate-pulse' : 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
                 {activeSound ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
              </div>
              <div>
-               <h4 className="text-base font-semibold text-[var(--color-claude-text-light)] dark:text-[var(--color-claude-text-dark)] dark:text-[var(--color-claude-text-dark)]">
+               <h4 className="text-base font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]">
                  {activeSound ? SOUNDS.find(s => s.id === activeSound)?.name : 'System Silent'}
                </h4>
-               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)]">
+               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">
                  {activeSound ? 'Active Soundscape' : 'Select a sound to begin'}
                </p>
              </div>
           </div>
 
           <div className="flex-1 w-full max-w-md space-y-3">
-             <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest text-[var(--color-claude-muted-light)] dark:text-[var(--color-claude-muted-dark)] px-1">
+             <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] px-1">
                <span>Mute</span>
                <span>Intensity</span>
              </div>
@@ -158,14 +158,14 @@ export default function ZenSoundscapes() {
                step="0.01"
                value={volume}
                onChange={handleVolumeChange}
-               className="w-full h-3 bg-[var(--color-claude-border-light)] dark:bg-[var(--color-claude-bg-dark)] dark:bg-[var(--color-claude-border-dark)] rounded-md appearance-none cursor-pointer accent-blue-600"
+               className="w-full h-3 bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] rounded-md appearance-none cursor-pointer accent-blue-600"
              />
           </div>
 
           <button
             onClick={stopAll}
             disabled={!activeSound}
-            className="px-8 py-4 rounded-md bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:text-stone-950 dark:hover:bg-[var(--color-claude-border-dark)] font-medium transition-all disabled:opacity-0"
+            className="px-8 py-4 rounded-md bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:text-stone-950 dark:hover:bg-[var(--color-zen-border-dark)] font-medium transition-all disabled:opacity-0"
           >
             Stop All
           </button>

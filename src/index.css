@@ -7,29 +7,32 @@
   --font-serif: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* Pastel Claude Palette */
-  --color-claude-bg-light: #F9F8F6;
-  --color-claude-bg-dark: #1E1D1B;
+  /* Hybrid Palette: Claude Light / Deep Zen Dark */
+  --color-zen-bg-light: #F9F8F6;
+  --color-zen-bg-dark: #020617; /* Original slate-950 */
   
-  --color-claude-card-light: #FFFFFF;
-  --color-claude-card-dark: #2A2A29;
+  --color-zen-card-light: #FFFFFF;
+  --color-zen-card-dark: #0f172a; /* Original slate-900 */
   
-  --color-claude-text-light: #2D2D2D;
-  --color-claude-text-dark: #E8E6E3;
+  --color-zen-text-light: #2D2D2D;
+  --color-zen-text-dark: #f8fafc; /* Original slate-50 */
   
-  --color-claude-muted-light: #73716D;
-  --color-claude-muted-dark: #8C8A86;
+  --color-zen-muted-light: #73716D;
+  --color-zen-muted-dark: #94a3b8; /* Original slate-400 */
   
-  --color-claude-border-light: #E6E4E0;
-  --color-claude-border-dark: #3A3A39;
+  --color-zen-border-light: #E6E4E0;
+  --color-zen-border-dark: #1e293b; /* Original slate-800 */
   
-  --color-claude-accent-primary: #D97757;
-  --color-claude-accent-hover: #c4684b;
+  --color-zen-accent-primary-light: #D97757; /* Pastel peach */
+  --color-zen-accent-hover-light: #c4684b;
+  
+  --color-zen-accent-primary-dark: #3b82f6; /* Original blue-500 */
+  --color-zen-accent-hover-dark: #2563eb; /* Original blue-600 */
 }
 
 @layer base {
   body {
-    @apply bg-[var(--color-claude-bg-light)] text-[var(--color-claude-text-light)] dark:bg-[var(--color-claude-bg-dark)] dark:text-[var(--color-claude-text-dark)] font-mono antialiased transition-colors duration-200 selection:bg-[var(--color-claude-accent-primary)]/30;
+    @apply bg-[var(--color-zen-bg-light)] text-[var(--color-zen-text-light)] dark:bg-[var(--color-zen-bg-dark)] dark:text-[var(--color-zen-text-dark)] font-mono antialiased transition-colors duration-200 selection:bg-[var(--color-zen-accent-primary-light)]/30 dark:selection:bg-[var(--color-zen-accent-primary-dark)]/30;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -51,21 +54,21 @@
     transform-origin: top center;
   }
 
-  /* Architectural Terminal Aesthetic Classes with Claude Pastel Warmth */
+  /* Architectural Terminal Aesthetic Classes */
   .zen-card {
-    @apply bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-card-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md shadow-sm;
+    @apply bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md shadow-sm;
   }
   
   .zen-input {
-    @apply bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-[var(--color-claude-accent-primary)] focus:border-[var(--color-claude-accent-primary)] outline-none transition-all placeholder:text-[var(--color-claude-muted-light)] dark:placeholder:text-[var(--color-claude-muted-dark)];
+    @apply bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-[var(--color-zen-accent-primary-light)] dark:focus:ring-[var(--color-zen-accent-primary-dark)] focus:border-[var(--color-zen-accent-primary-light)] dark:focus:border-[var(--color-zen-accent-primary-dark)] outline-none transition-all placeholder:text-[var(--color-zen-muted-light)] dark:placeholder:text-[var(--color-zen-muted-dark)];
   }
 
   .zen-btn-primary {
-    @apply bg-[var(--color-claude-accent-primary)] text-white hover:bg-[var(--color-claude-accent-hover)] transition-all font-medium border border-transparent shadow-sm rounded-md;
+    @apply bg-[var(--color-zen-accent-primary-light)] dark:bg-[var(--color-zen-accent-primary-dark)] text-white hover:bg-[var(--color-zen-accent-hover-light)] dark:hover:bg-[var(--color-zen-accent-hover-dark)] transition-all font-medium border border-transparent shadow-sm rounded-md;
   }
 
   .zen-btn-secondary {
-    @apply bg-[var(--color-claude-card-light)] hover:bg-[var(--color-claude-border-light)] text-[var(--color-claude-text-light)] dark:bg-[var(--color-claude-card-dark)] dark:hover:bg-[var(--color-claude-border-dark)] dark:text-[var(--color-claude-text-dark)] transition-all font-medium border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] shadow-sm rounded-md;
+    @apply bg-[var(--color-zen-card-light)] hover:bg-[var(--color-zen-border-light)] text-[var(--color-zen-text-light)] dark:bg-[var(--color-zen-card-dark)] dark:hover:bg-[var(--color-zen-border-dark)] dark:text-[var(--color-zen-text-dark)] transition-all font-medium border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] shadow-sm rounded-md;
   }
 }
 

@@ -6,11 +6,30 @@
   --font-sans: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-serif: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Pastel Claude Palette */
+  --color-claude-bg-light: #F9F8F6;
+  --color-claude-bg-dark: #1E1D1B;
+  
+  --color-claude-card-light: #FFFFFF;
+  --color-claude-card-dark: #2A2A29;
+  
+  --color-claude-text-light: #2D2D2D;
+  --color-claude-text-dark: #E8E6E3;
+  
+  --color-claude-muted-light: #73716D;
+  --color-claude-muted-dark: #8C8A86;
+  
+  --color-claude-border-light: #E6E4E0;
+  --color-claude-border-dark: #3A3A39;
+  
+  --color-claude-accent-primary: #D97757;
+  --color-claude-accent-hover: #c4684b;
 }
 
 @layer base {
   body {
-    @apply bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-50 font-mono antialiased transition-colors duration-200 selection:bg-orange-200 dark:selection:bg-orange-900/50;
+    @apply bg-[var(--color-claude-bg-light)] text-[var(--color-claude-text-light)] dark:bg-[var(--color-claude-bg-dark)] dark:text-[var(--color-claude-text-dark)] font-mono antialiased transition-colors duration-200 selection:bg-[var(--color-claude-accent-primary)]/30;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -34,19 +53,19 @@
 
   /* Architectural Terminal Aesthetic Classes with Claude Pastel Warmth */
   .zen-card {
-    @apply bg-white dark:bg-stone-900/50 border border-stone-200 dark:border-stone-800/80 rounded-md shadow-sm backdrop-blur-sm;
+    @apply bg-[var(--color-claude-card-light)] dark:bg-[var(--color-claude-card-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md shadow-sm;
   }
   
   .zen-input {
-    @apply bg-stone-50 dark:bg-stone-950/50 border border-stone-200 dark:border-stone-800 rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-orange-400 dark:focus:ring-orange-600 focus:border-orange-400 dark:focus:border-orange-600 outline-none transition-all placeholder:text-stone-400 dark:placeholder:text-stone-600;
+    @apply bg-[var(--color-claude-bg-light)] dark:bg-[var(--color-claude-bg-dark)] border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-[var(--color-claude-accent-primary)] focus:border-[var(--color-claude-accent-primary)] outline-none transition-all placeholder:text-[var(--color-claude-muted-light)] dark:placeholder:text-[var(--color-claude-muted-dark)];
   }
 
   .zen-btn-primary {
-    @apply bg-orange-600 text-white hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-400 dark:text-stone-950 transition-all font-medium border border-transparent shadow-sm;
+    @apply bg-[var(--color-claude-accent-primary)] text-white hover:bg-[var(--color-claude-accent-hover)] transition-all font-medium border border-transparent shadow-sm rounded-md;
   }
 
   .zen-btn-secondary {
-    @apply bg-white hover:bg-stone-50 text-stone-700 dark:bg-stone-900 dark:hover:bg-stone-800 dark:text-stone-300 transition-all font-medium border border-stone-200 dark:border-stone-800 shadow-sm;
+    @apply bg-[var(--color-claude-card-light)] hover:bg-[var(--color-claude-border-light)] text-[var(--color-claude-text-light)] dark:bg-[var(--color-claude-card-dark)] dark:hover:bg-[var(--color-claude-border-dark)] dark:text-[var(--color-claude-text-dark)] transition-all font-medium border border-[var(--color-claude-border-light)] dark:border-[var(--color-claude-border-dark)] shadow-sm rounded-md;
   }
 }
 

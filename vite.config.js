@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/zen-tools/', // Exact repository name
+  base: './', // Use relative path for maximum compatibility on GH Pages
 })

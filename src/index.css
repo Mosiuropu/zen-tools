@@ -1,420 +1,56 @@
 @import "tailwindcss";
 
-/* ── Zen Design System ───────────────────────────────────────── */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter", "system-ui", "sans-serif";
-
-  /* Zen Deep Indigo brand palette */
-  --color-zen-50: #eef2ff;
-  --color-zen-100: #e0e7ff;
-  --color-zen-200: #c7d2fe;
-  --color-zen-300: #a5b4fc;
-  --color-zen-400: #818cf8;
-  --color-zen-500: #6366f1;
-  --color-zen-600: #4f46e5;
-  --color-zen-700: #4338ca;
-  --color-zen-800: #3730a3;
-  --color-zen-900: #312e81;
-  --color-zen-950: #1e1b4b;
-
-  /* Surface tokens */
-  --color-surface: #ffffff;
-  --color-surface-secondary: #f8fafc;
-  --color-surface-tertiary: #f1f5f9;
-
-  --color-surface-dark: #0f172a;
-  --color-surface-secondary-dark: #1e293b;
-  --color-surface-tertiary-dark: #334155;
-
-  /* Border tokens */
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
-  --color-border-dark: #334155;
-  --color-border-dark-light: #1e293b;
-
-  /* Text tokens */
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #64748b;
-  --color-text-tertiary: #94a3b8;
-  --color-text-primary-dark: #f1f5f9;
-  --color-text-secondary-dark: #94a3b8;
-  --color-text-tertiary-dark: #64748b;
-
-  /* Semantic */
-  --color-accent: #6366f1;
-  --color-accent-hover: #4f46e5;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
+  --font-sans: "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif";
+  --font-serif: "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif";
 }
-
-/* ── Base ────────────────────────────────────────────────────── */
 
 @layer base {
   body {
-    @apply font-sans antialiased;
-    background-color: var(--color-surface-secondary);
-    color: var(--color-text-primary);
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .dark body,
-  body.dark {
-    background-color: var(--color-surface-dark);
-    color: var(--color-text-primary-dark);
-  }
-  html.dark {
-    color-scheme: dark;
-  }
-  ::selection {
-    background-color: var(--color-zen-200);
-    color: var(--color-zen-900);
-  }
-  html.dark ::selection {
-    background-color: var(--color-zen-800);
-    color: var(--color-zen-200);
+    @apply bg-[#F9F8F6] text-[#2D2D2D] dark:bg-[#1E1D1B] dark:text-[#E8E6E3] font-sans transition-colors duration-300 antialiased;
   }
 }
-
-/* ── Component Utilities ─────────────────────────────────────── */
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
-  /* Cards */
+  .animate-zen-pendulum {
+    animation: zen-swing 2s ease-in-out infinite;
+    transform-origin: top center;
+  }
+
+  /* Custom Claude-like card styles */
   .zen-card {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    transition: box-shadow 0.2s, border-color 0.2s;
+    @apply bg-white dark:bg-[#2A2A29] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-2xl shadow-sm;
   }
-  html.dark .zen-card {
-    background-color: var(--color-surface-dark);
-    border-color: var(--color-border-dark);
-  }
-  .zen-card-hover:hover {
-    border-color: var(--color-zen-300);
-    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08);
-  }
-  html.dark .zen-card-hover:hover {
-    border-color: var(--color-zen-600);
-    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.12);
-  }
-  .zen-card-glass {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--color-border);
-    border-radius: 1rem;
-    padding: 1.5rem;
-  }
-  html.dark .zen-card-glass {
-    background-color: rgba(15, 23, 42, 0.7);
-    border-color: var(--color-border-dark);
-  }
-
-  /* Glass morphism */
-  .zen-glass {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--color-border);
-  }
-  html.dark .zen-glass {
-    background-color: rgba(15, 23, 42, 0.7);
-    border-color: var(--color-border-dark);
-  }
-
-  /* Buttons */
-  .zen-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    font-size: 0.875rem;
-    transition: all 0.15s;
-    cursor: pointer;
-    border: none;
-  }
-  .zen-btn-primary {
-    background-color: var(--color-accent);
-    color: #ffffff;
-  }
-  .zen-btn-primary:hover {
-    background-color: var(--color-accent-hover);
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
-  }
-  .zen-btn-ghost {
-    background-color: transparent;
-    color: var(--color-text-secondary);
-    border: 1px solid var(--color-border);
-  }
-  html.dark .zen-btn-ghost {
-    color: var(--color-text-secondary-dark);
-    border-color: var(--color-border-dark);
-  }
-  .zen-btn-ghost:hover {
-    background-color: var(--color-surface-tertiary);
-    color: var(--color-text-primary);
-  }
-  html.dark .zen-btn-ghost:hover {
-    background-color: var(--color-surface-tertiary-dark);
-    color: var(--color-text-primary-dark);
-  }
-  .zen-btn-icon {
-    padding: 0.625rem;
-    border-radius: 0.75rem;
-  }
-  .zen-btn-sm {
-    padding: 0.375rem 0.75rem;
-    font-size: 0.75rem;
-    border-radius: 0.5rem;
-  }
-
-  /* Inputs */
+  
   .zen-input {
-    width: 100%;
-    padding: 0.625rem 0.875rem;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-surface);
-    color: var(--color-text-primary);
-    font-size: 0.875rem;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
-  }
-  html.dark .zen-input {
-    background-color: var(--color-surface-dark);
-    border-color: var(--color-border-dark);
-    color: var(--color-text-primary-dark);
-  }
-  .zen-input:focus {
-    border-color: var(--color-zen-400);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
-  }
-  .zen-input::placeholder {
-    color: var(--color-text-tertiary);
-  }
-  html.dark .zen-input::placeholder {
-    color: var(--color-text-tertiary-dark);
+    @apply bg-[#F9F8F6] dark:bg-[#1E1D1B] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-xl focus:ring-1 focus:ring-[#D97757] focus:border-[#D97757] dark:focus:ring-[#E28F73] dark:focus:border-[#E28F73] outline-none transition-all;
   }
 
-  /* Select */
-  .zen-select {
-    width: 100%;
-    padding: 0.625rem 0.875rem;
-    padding-right: 2.5rem;
-    border-radius: 0.75rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-surface);
-    color: var(--color-text-primary);
-    font-size: 0.875rem;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-  }
-  html.dark .zen-select {
-    background-color: var(--color-surface-dark);
-    border-color: var(--color-border-dark);
-    color: var(--color-text-primary-dark);
-  }
-  .zen-select:focus {
-    border-color: var(--color-zen-400);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+  .zen-button-primary {
+    @apply bg-[#D97757] hover:bg-[#c4684b] text-white dark:bg-[#E28F73] dark:hover:bg-[#d48166] dark:text-[#1E1D1B] transition-colors;
   }
 
-  /* Badges / Chips */
-  .zen-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.125rem 0.625rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background-color: var(--color-zen-100);
-    color: var(--color-zen-700);
-  }
-  html.dark .zen-badge {
-    background-color: var(--color-zen-900);
-    color: var(--color-zen-300);
-  }
-  .zen-badge-green {
-    background-color: #d1fae5;
-    color: #065f46;
-  }
-  html.dark .zen-badge-green {
-    background-color: #064e3b;
-    color: #6ee7b7;
-  }
-  .zen-badge-amber {
-    background-color: #fef3c7;
-    color: #92400e;
-  }
-  html.dark .zen-badge-amber {
-    background-color: #78350f;
-    color: #fcd34d;
-  }
-
-  /* Tab pill */
-  .zen-tab-active {
-    background-color: var(--color-accent);
-    color: #ffffff;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
-  }
-  .zen-tab-inactive {
-    color: var(--color-text-secondary);
-  }
-  html.dark .zen-tab-inactive {
-    color: var(--color-text-secondary-dark);
-  }
-  .zen-tab-inactive:hover {
-    color: var(--color-text-primary);
-    background-color: var(--color-surface-tertiary);
-  }
-  html.dark .zen-tab-inactive:hover {
-    color: var(--color-text-primary-dark);
-    background-color: var(--color-surface-tertiary-dark);
-  }
-
-  /* Progress bar */
-  .zen-progress {
-    height: 0.5rem;
-    border-radius: 9999px;
-    background-color: var(--color-surface-tertiary);
-    overflow: hidden;
-  }
-  html.dark .zen-progress {
-    background-color: var(--color-surface-tertiary-dark);
-  }
-  .zen-progress-bar {
-    height: 100%;
-    border-radius: 9999px;
-    background: linear-gradient(135deg, var(--color-zen-400), var(--color-accent));
-    transition: width 0.5s ease;
-  }
-
-  /* Toggle switch */
-  .zen-toggle {
-    position: relative;
-    width: 2.75rem;
-    height: 1.5rem;
-    border-radius: 9999px;
-    background-color: var(--color-surface-tertiary);
-    border: 1px solid var(--color-border);
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-  html.dark .zen-toggle {
-    background-color: var(--color-surface-tertiary-dark);
-    border-color: var(--color-border-dark);
-  }
-  .zen-toggle.active {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-  .zen-toggle-knob {
-    position: absolute;
-    top: 0.125rem;
-    left: 0.125rem;
-    width: 1.125rem;
-    height: 1.125rem;
-    border-radius: 9999px;
-    background-color: #ffffff;
-    transition: transform 0.2s;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-  }
-  .zen-toggle.active .zen-toggle-knob {
-    transform: translateX(1.25rem);
+  .zen-button-secondary {
+    @apply bg-[#F0EFEA] hover:bg-[#E6E4E0] text-[#5C5A56] dark:bg-[#3A3A39] dark:hover:bg-[#4A4A49] dark:text-[#B5B3AD] transition-colors border border-transparent dark:border-transparent;
   }
 }
 
-/* ── Animations ──────────────────────────────────────────────── */
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-@keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15); }
-  50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); }
-}
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
-}
-@keyframes skeleton-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
 @keyframes zen-swing {
   0% { transform: rotate(15deg); }
   50% { transform: rotate(-15deg); }
   100% { transform: rotate(15deg); }
 }
 
-.animate-fade-in {
-  animation: fade-in 0.5s ease forwards;
+:root {
+  color-scheme: light dark;
 }
-.animate-slide-up {
-  animation: slide-up 0.5s ease forwards;
-}
-.animate-scale-in {
-  animation: scale-in 0.3s ease forwards;
-}
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-.animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-.animate-spin-slow {
-  animation: spin-slow 3s linear infinite;
-}
-.animate-zen-pendulum {
-  animation: zen-swing 2s ease-in-out infinite;
-  transform-origin: top center;
-}
-.animate-skeleton {
-  background: linear-gradient(90deg, var(--color-surface-tertiary) 25%, var(--color-border) 50%, var(--color-surface-tertiary) 75%);
-  background-size: 200% 100%;
-  animation: skeleton-shimmer 1.5s ease-in-out infinite;
-  border-radius: 0.5rem;
-}
-html.dark .animate-skeleton {
-  background: linear-gradient(90deg, var(--color-surface-tertiary-dark) 25%, var(--color-border-dark) 50%, var(--color-surface-tertiary-dark) 75%);
-}
-
-/* Stagger children */
-.zen-stagger > * {
-  opacity: 0;
-  animation: slide-up 0.4s ease forwards;
-}
-.zen-stagger > *:nth-child(1) { animation-delay: 0ms; }
-.zen-stagger > *:nth-child(2) { animation-delay: 60ms; }
-.zen-stagger > *:nth-child(3) { animation-delay: 120ms; }
-.zen-stagger > *:nth-child(4) { animation-delay: 180ms; }
-.zen-stagger > *:nth-child(5) { animation-delay: 240ms; }
-.zen-stagger > *:nth-child(6) { animation-delay: 300ms; }
-.zen-stagger > *:nth-child(7) { animation-delay: 360ms; }
-.zen-stagger > *:nth-child(8) { animation-delay: 420ms; }
-.zen-stagger > *:nth-child(9) { animation-delay: 480ms; }
-.zen-stagger > *:nth-child(10) { animation-delay: 540ms; }

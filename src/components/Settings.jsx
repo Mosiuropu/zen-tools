@@ -47,37 +47,37 @@ const Settings = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+      <div className="bg-white dark:bg-[#2A2A29] rounded-3xl p-8 border border-[#E6E4E0] dark:border-[#3A3A39] shadow-xl shadow-slate-200/50 dark:shadow-none">
         
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl">
+          <div className="p-3 bg-blue-100 dark:bg-blue-900/30 text-[#D97757] dark:text-[#E28F73] rounded-xl">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Data Management</h3>
-            <p className="text-slate-500 dark:text-slate-400">Your data never leaves your device. Manage your local storage here.</p>
+            <h3 className="text-2xl font-bold text-[#2D2D2D] dark:text-[#E8E6E3]">Data Management</h3>
+            <p className="text-[#73716D] dark:text-[#8C8A86]">Your data never leaves your device. Manage your local storage here.</p>
           </div>
         </div>
 
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-[#F9F8F6] dark:bg-[#3A3A39]/50 rounded-2xl border border-[#F0EFEA] dark:border-[#3A3A39]">
             <div>
-              <h4 className="font-bold text-slate-900 dark:text-white text-lg">Export Data</h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Download all your habits, notes, and settings as a JSON file.</p>
+              <h4 className="font-bold text-[#2D2D2D] dark:text-[#E8E6E3] text-lg">Export Data</h4>
+              <p className="text-sm text-[#73716D] dark:text-[#8C8A86] mt-1">Download all your habits, notes, and settings as a JSON file.</p>
             </div>
             <button 
               onClick={handleExport}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all w-full sm:w-auto justify-center"
+              className="flex items-center gap-2 px-6 py-3 bg-[#D97757] hover:bg-[#c4684b] text-white font-bold rounded-xl transition-all w-full sm:w-auto justify-center"
             >
               <Download className="w-5 h-5" />
               Export Backup
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-[#F9F8F6] dark:bg-[#3A3A39]/50 rounded-2xl border border-[#F0EFEA] dark:border-[#3A3A39]">
             <div>
-              <h4 className="font-bold text-slate-900 dark:text-white text-lg">Import Data</h4>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Restore your data from a previous JSON backup file.</p>
+              <h4 className="font-bold text-[#2D2D2D] dark:text-[#E8E6E3] text-lg">Import Data</h4>
+              <p className="text-sm text-[#73716D] dark:text-[#8C8A86] mt-1">Restore your data from a previous JSON backup file.</p>
             </div>
             <div className="w-full sm:w-auto relative">
               <input 
@@ -87,7 +87,7 @@ const Settings = () => {
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 title="Select backup file"
               />
-              <button className="flex items-center gap-2 px-6 py-3 bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition-all w-full sm:w-auto justify-center">
+              <button className="flex items-center gap-2 px-6 py-3 bg-[#E6E4E0] dark:bg-[#3A3A39] hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-[#B5B3AD] font-bold rounded-xl transition-all w-full sm:w-auto justify-center">
                 <Upload className="w-5 h-5" />
                 Import Backup
               </button>
@@ -101,11 +101,11 @@ const Settings = () => {
             </div>
           )}
 
-          <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+          <div className="mt-12 pt-8 border-t border-[#E6E4E0] dark:border-[#3A3A39]">
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
               <div>
                 <h4 className="font-bold text-red-600 dark:text-red-400 text-lg">Danger Zone</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Permanently delete all local data from this browser.</p>
+                <p className="text-sm text-[#73716D] dark:text-[#8C8A86] mt-1">Permanently delete all local data from this browser.</p>
               </div>
               <button 
                 onClick={handleClear}

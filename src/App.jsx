@@ -47,43 +47,42 @@ function App() {
   }, [isDark]);
 
   const tabs = [
-    { id: 'units', label: 'Units', icon: <Ruler className="w-5 h-5" /> },
-    { id: 'age', label: 'Age', icon: <Calendar className="w-5 h-5" /> },
-    { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-5 h-5" /> },
-    { id: 'focus', label: 'Focus', icon: <Brain className="w-5 h-5" /> },
-    { id: 'notes', label: 'Notes', icon: <FileText className="w-5 h-5" /> },
-    { id: 'priorities', label: 'Priorities', icon: <Target className="w-5 h-5" /> },
-    { id: 'breathing', label: 'Breathing', icon: <Wind className="w-5 h-5" /> },
-    { id: 'sounds', label: 'Sounds', icon: <Music className="w-5 h-5" /> },
-    { id: 'clock', label: 'Clock', icon: <Clock className="w-5 h-5" /> },
-    { id: 'countdown', label: 'Timer', icon: <Timer className="w-5 h-5" /> },
-    { id: 'settings', label: 'Data', icon: <SettingsIcon className="w-5 h-5" /> },
+    { id: 'units', label: 'Units', icon: <Ruler className="w-4 h-4" /> },
+    { id: 'age', label: 'Age', icon: <Calendar className="w-4 h-4" /> },
+    { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-4 h-4" /> },
+    { id: 'focus', label: 'Focus', icon: <Brain className="w-4 h-4" /> },
+    { id: 'notes', label: 'Notes', icon: <FileText className="w-4 h-4" /> },
+    { id: 'priorities', label: 'Priorities', icon: <Target className="w-4 h-4" /> },
+    { id: 'breathing', label: 'Breathing', icon: <Wind className="w-4 h-4" /> },
+    { id: 'sounds', label: 'Sounds', icon: <Music className="w-4 h-4" /> },
+    { id: 'clock', label: 'Clock', icon: <Clock className="w-4 h-4" /> },
+    { id: 'countdown', label: 'Timer', icon: <Timer className="w-4 h-4" /> },
+    { id: 'settings', label: 'Data', icon: <SettingsIcon className="w-4 h-4" /> },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col transition-colors duration-300">
       {/* Header */}
-      <header className="border-b border-slate-200 dark:border-slate-900 bg-white/70 dark:bg-slate-950/50 backdrop-blur-xl sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <header className="border-b border-[#E6E4E0] dark:border-[#3A3A39] bg-[#F9F8F6]/80 dark:bg-[#1E1D1B]/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
-              <Sparkles className="w-6 h-6 text-white" />
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-[#F0EFEA] dark:bg-[#3A3A39] border border-[#E6E4E0] dark:border-[#4A4A49]">
+              <Sparkles className="w-4 h-4 text-[#D97757] dark:text-[#E28F73]" />
             </div>
             <div>
-              <h1 className="text-xl font-black tracking-tight text-slate-900 dark:text-white">Zen Tools</h1>
-              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Minimal • Ad-Free • Powerful</p>
+              <h1 className="text-lg font-serif font-medium tracking-tight text-[#2D2D2D] dark:text-[#E8E6E3]">Zen Tools</h1>
             </div>
           </div>
 
-          <nav className="hidden xl:flex bg-slate-100 dark:bg-slate-900/50 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 flex-wrap justify-center">
+          <nav className="hidden xl:flex items-center gap-1">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-all ${
                   activeTab === tab.id
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20'
-                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
+                    ? 'zen-card shadow-sm font-medium text-[#D97757] dark:text-[#E28F73]'
+                    : 'text-[#73716D] dark:text-[#8C8A86] hover:bg-[#F0EFEA] dark:hover:bg-[#3A3A39]'
                 }`}
               >
                 {tab.icon}
@@ -92,48 +91,47 @@ function App() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setIsDark(!isDark)}
-              className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-blue-500 transition-all border border-slate-200 dark:border-slate-800"
+              className="p-2 rounded-lg text-[#73716D] dark:text-[#8C8A86] hover:bg-[#F0EFEA] dark:hover:bg-[#3A3A39] transition-all"
             >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <a 
               href="https://github.com/Mosiuropu/zen-tools" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+              className="hidden sm:flex items-center gap-2 p-2 rounded-lg text-[#73716D] dark:text-[#8C8A86] hover:bg-[#F0EFEA] dark:hover:bg-[#3A3A39] transition-all"
             >
-              <Github className="w-6 h-6" />
-              <span className="font-bold text-sm">Star</span>
+              <Github className="w-4 h-4" />
             </a>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-12 md:py-20">
-        <div className="mb-16 text-center space-y-4">
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-            {activeTab === 'units' && "Convert units with zero friction."}
-            {activeTab === 'age' && "Compare ages with precision."}
-            {activeTab === 'countdown' && "Track your next big milestone."}
-            {activeTab === 'habits' && "Master your daily routines."}
-            {activeTab === 'focus' && "Enter a state of deep focus."}
-            {activeTab === 'notes' && "Capture your best thoughts."}
-            {activeTab === 'priorities' && "Focus on what truly matters."}
-            {activeTab === 'breathing' && "Take a moment to reset."}
-            {activeTab === 'sounds' && "Curate your ambient workspace."}
-            {activeTab === 'clock' && "Master your current moment."}
-            {activeTab === 'settings' && "Your data belongs to you."}
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 py-8 md:py-12">
+        <div className="mb-12 text-center space-y-3">
+          <h2 className="text-2xl md:text-3xl font-serif font-medium text-[#2D2D2D] dark:text-[#E8E6E3] tracking-tight">
+            {activeTab === 'units' && "Convert units seamlessly"}
+            {activeTab === 'age' && "Compare ages with precision"}
+            {activeTab === 'countdown' && "Track your next milestone"}
+            {activeTab === 'habits' && "Master your daily routines"}
+            {activeTab === 'focus' && "Enter a state of deep focus"}
+            {activeTab === 'notes' && "Capture your thoughts"}
+            {activeTab === 'priorities' && "Focus on what truly matters"}
+            {activeTab === 'breathing' && "Take a moment to reset"}
+            {activeTab === 'sounds' && "Curate your ambient workspace"}
+            {activeTab === 'clock' && "Master your current moment"}
+            {activeTab === 'settings' && "Manage your local data"}
           </h2>
-          <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto">
-            A tool built for people who value time and clarity. No ads, no trackers, just clean functionality.
+          <p className="text-[#73716D] dark:text-[#8C8A86] text-sm md:text-base max-w-xl mx-auto font-sans">
+            Minimal. Local. Ad-free.
           </p>
         </div>
 
-        <div className="animate-in fade-in duration-700">
+        <div className="animate-in fade-in duration-500">
           {activeTab === 'units' && <UnitConverter />}
           {activeTab === 'age' && <AgeCalculator />}
           {activeTab === 'countdown' && <CountdownTimer />}
@@ -149,37 +147,32 @@ function App() {
       </main>
 
       {/* Mobile Nav */}
-      <nav className="xl:hidden fixed bottom-6 left-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 p-2 rounded-3xl flex justify-start sm:justify-between shadow-2xl z-50 overflow-x-auto no-scrollbar gap-1">
+      <nav className="xl:hidden fixed bottom-4 left-4 right-4 bg-[#F9F8F6]/90 dark:bg-[#1E1D1B]/90 backdrop-blur-md border border-[#E6E4E0] dark:border-[#3A3A39] p-2 rounded-2xl flex justify-start sm:justify-center shadow-lg z-50 overflow-x-auto no-scrollbar gap-1">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-center gap-1 p-3 min-w-[64px] rounded-2xl transition-all ${
+            className={`flex flex-col items-center justify-center gap-1 p-2 min-w-[60px] rounded-xl transition-all ${
               activeTab === tab.id
-                ? 'bg-blue-600 text-white'
-                : 'text-slate-500 dark:text-slate-400'
+                ? 'zen-card text-[#D97757] dark:text-[#E28F73]'
+                : 'text-[#73716D] dark:text-[#8C8A86]'
             }`}
           >
             {tab.icon}
-            <span className="text-[10px] font-bold uppercase tracking-tighter">{tab.label}</span>
+            <span className="text-[9px] font-medium tracking-wide">{tab.label}</span>
           </button>
         ))}
       </nav>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-200 dark:border-slate-900 mt-20 mb-24 xl:mb-0">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-500 font-medium">
-            <Shield className="w-4 h-4" />
+      <footer className="py-8 border-t border-[#E6E4E0] dark:border-[#3A3A39] mt-auto mb-20 xl:mb-0">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2 text-[#73716D] dark:text-[#8C8A86] text-xs font-medium">
+            <Shield className="w-3 h-3" />
             <span>Open Source • No Tracking • No Ads</span>
           </div>
-          <div className="text-slate-600 dark:text-slate-600 text-sm">
-            Created with passion to help people.
-          </div>
-          <div className="flex gap-6">
-            <a href="#" className="text-slate-500 hover:text-blue-500 transition-colors font-bold text-sm">Privacy</a>
-            <a href="#" className="text-slate-500 hover:text-blue-500 transition-colors font-bold text-sm">Terms</a>
-            <a href="#" className="text-slate-500 hover:text-blue-500 transition-colors font-bold text-sm">Support</a>
+          <div className="flex gap-4">
+            <a href="https://github.com/Mosiuropu/zen-tools" className="text-[#73716D] dark:text-[#8C8A86] hover:text-[#D97757] dark:hover:text-[#E28F73] transition-colors text-xs font-medium">GitHub</a>
           </div>
         </div>
       </footer>

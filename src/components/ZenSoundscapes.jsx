@@ -106,7 +106,7 @@ export default function ZenSoundscapes() {
     <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-700">
       <div className="text-center space-y-4">
         <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-blue-500">Synthetic Zen</h3>
-        <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+        <p className="text-[#73716D] dark:text-[#8C8A86] max-w-md mx-auto">
           Pure, algorithmically generated soundscapes. No loops, no gaps, just infinite focus.
         </p>
       </div>
@@ -118,11 +118,11 @@ export default function ZenSoundscapes() {
             onClick={() => activeSound === sound.id ? stopAll() : startNoise(sound.id)}
             className={`flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 transition-all group ${
               activeSound === sound.id 
-                ? 'bg-blue-600 border-blue-500 text-white shadow-xl shadow-blue-900/40 scale-105' 
-                : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-400 hover:border-blue-500/50 hover:text-slate-600 dark:hover:text-slate-200'
+                ? 'bg-[#D97757] border-blue-500 text-white shadow-xl shadow-blue-900/40 scale-105' 
+                : 'bg-white dark:bg-[#2A2A29] border-[#E6E4E0] dark:border-[#3A3A39] text-slate-400 hover:border-blue-500/50 hover:text-[#5C5A56] dark:hover:text-slate-200'
             }`}
           >
-            <div className={`p-4 rounded-2xl mb-4 transition-all ${activeSound === sound.id ? 'bg-white/20' : 'bg-slate-50 dark:bg-slate-950 group-hover:scale-110'}`}>
+            <div className={`p-4 rounded-2xl mb-4 transition-all ${activeSound === sound.id ? 'bg-white/20' : 'bg-[#F9F8F6] dark:bg-[#1E1D1B] group-hover:scale-110'}`}>
               {React.cloneElement(sound.icon, { className: "w-8 h-8" })}
             </div>
             <span className="font-bold text-sm tracking-tight">{sound.name}</span>
@@ -130,14 +130,14 @@ export default function ZenSoundscapes() {
         ))}
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
+      <div className="bg-white dark:bg-[#2A2A29] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-6">
-             <div className={`p-5 rounded-3xl ${activeSound ? 'bg-blue-600 text-white animate-pulse' : 'bg-slate-100 dark:bg-slate-950 text-slate-400'}`}>
+             <div className={`p-5 rounded-3xl ${activeSound ? 'bg-[#D97757] text-white animate-pulse' : 'bg-[#F0EFEA] dark:bg-[#1E1D1B] text-slate-400'}`}>
                 {activeSound ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
              </div>
              <div>
-               <h4 className="text-xl font-black text-slate-800 dark:text-white">
+               <h4 className="text-xl font-black text-slate-800 dark:text-[#E8E6E3]">
                  {activeSound ? SOUNDS.find(s => s.id === activeSound)?.name : 'System Silent'}
                </h4>
                <p className="text-sm font-bold uppercase tracking-widest text-slate-400">
@@ -158,7 +158,7 @@ export default function ZenSoundscapes() {
                step="0.01"
                value={volume}
                onChange={handleVolumeChange}
-               className="w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full appearance-none cursor-pointer accent-blue-600"
+               className="w-full h-3 bg-[#F0EFEA] dark:bg-[#3A3A39] rounded-full appearance-none cursor-pointer accent-blue-600"
              />
           </div>
 

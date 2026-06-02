@@ -38,12 +38,12 @@ export default function ZenPriorities() {
     <div className="max-w-2xl mx-auto space-y-12 animate-in slide-in-from-bottom-8 duration-700">
       <div className="text-center space-y-4">
         <h3 className="text-sm font-bold uppercase tracking-[0.3em] text-blue-500">The Rule of Three</h3>
-        <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+        <p className="text-[#73716D] dark:text-[#8C8A86] max-w-md mx-auto">
           Choose exactly three high-impact tasks. Don't add more until one is finished.
         </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-10">
+      <div className="bg-white dark:bg-[#2A2A29] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-10">
         <form onSubmit={addTask} className="relative">
           <input
             type="text"
@@ -51,12 +51,12 @@ export default function ZenPriorities() {
             onChange={(e) => setInputValue(e.target.value)}
             disabled={tasks.length >= 3}
             placeholder={tasks.length >= 3 ? "List is full. Finish a task first." : "What is your next priority?"}
-            className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-2xl px-6 py-5 text-xl font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all disabled:opacity-50 placeholder-slate-400 dark:placeholder-slate-700"
+            className="w-full bg-[#F9F8F6] dark:bg-[#1E1D1B] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-2xl px-6 py-5 text-xl font-bold focus:outline-none focus:ring-2 focus:ring-[#D97757] dark:focus:ring-[#E28F73]/50 transition-all disabled:opacity-50 placeholder-slate-400 dark:placeholder-slate-700"
           />
           <button
             type="submit"
             disabled={!inputValue.trim() || tasks.length >= 3}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition-all disabled:opacity-0 disabled:scale-90"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-3 bg-[#D97757] text-white rounded-xl hover:bg-blue-500 transition-all disabled:opacity-0 disabled:scale-90"
           >
             <Plus className="w-6 h-6" />
           </button>
@@ -68,18 +68,18 @@ export default function ZenPriorities() {
               key={task.id}
               className={`group flex items-center justify-between p-6 rounded-[2rem] border-2 transition-all ${
                 task.completed 
-                  ? 'bg-slate-50 dark:bg-slate-950/50 border-transparent opacity-50' 
-                  : 'bg-white dark:bg-slate-950 border-slate-100 dark:border-slate-800 hover:border-blue-500/30'
+                  ? 'bg-[#F9F8F6] dark:bg-[#1E1D1B]/50 border-transparent opacity-50' 
+                  : 'bg-white dark:bg-[#1E1D1B] border-[#F0EFEA] dark:border-[#3A3A39] hover:border-blue-500/30'
               }`}
             >
               <div className="flex items-center gap-6">
                 <button
                   onClick={() => toggleTask(task.id)}
-                  className={`transition-all active:scale-75 ${task.completed ? 'text-emerald-500' : 'text-slate-300 dark:text-slate-700 hover:text-blue-500'}`}
+                  className={`transition-all active:scale-75 ${task.completed ? 'text-emerald-500' : 'text-slate-300 dark:text-slate-700 hover:text-[#D97757] dark:hover:text-[#E28F73]'}`}
                 >
                   {task.completed ? <CheckCircle2 className="w-10 h-10" /> : <Circle className="w-10 h-10" />}
                 </button>
-                <span className={`text-xl md:text-2xl font-black tracking-tight transition-all ${task.completed ? 'line-through text-slate-400 dark:text-slate-600' : 'text-slate-800 dark:text-slate-100'}`}>
+                <span className={`text-xl md:text-2xl font-black tracking-tight transition-all ${task.completed ? 'line-through text-slate-400 dark:text-[#5C5A56]' : 'text-slate-800 dark:text-slate-100'}`}>
                   {task.text}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export default function ZenPriorities() {
           )}
         </div>
 
-        <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
+        <div className="pt-6 border-t border-[#F0EFEA] dark:border-[#3A3A39] flex justify-between items-center text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
           <span>{tasks.filter(t => t.completed).length} / 3 Completed</span>
           <span>{3 - tasks.length} Slots Remaining</span>
         </div>

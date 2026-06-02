@@ -105,8 +105,8 @@ export default function ZenSoundscapes() {
   return (
     <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-700">
       <div className="text-center space-y-4">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-blue-500">Synthetic Zen</h3>
-        <p className="text-zinc-500 dark:text-zinc-400 max-w-md mx-auto">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-orange-500">Synthetic Zen</h3>
+        <p className="text-stone-500 dark:text-stone-400 max-w-md mx-auto">
           Pure, algorithmically generated soundscapes. No loops, no gaps, just infinite focus.
         </p>
       </div>
@@ -118,11 +118,11 @@ export default function ZenSoundscapes() {
             onClick={() => activeSound === sound.id ? stopAll() : startNoise(sound.id)}
             className={`flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 transition-all group ${
               activeSound === sound.id 
-                ? 'bg-zinc-900 border-blue-500 text-white shadow-sm shadow-blue-900/40 scale-105' 
-                : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-slate-400 hover:border-blue-500/50 hover:text-zinc-600 dark:hover:text-slate-200'
+                ? 'zen-btn-primary border-orange-500 shadow-sm shadow-orange-900/40 scale-105' 
+                : 'bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 text-stone-400 hover:border-orange-500/50 hover:text-stone-600 dark:hover:text-stone-200'
             }`}
           >
-            <div className={`p-4 rounded-md mb-4 transition-all ${activeSound === sound.id ? 'bg-white/20' : 'bg-zinc-50 dark:bg-zinc-950 group-hover:scale-110'}`}>
+            <div className={`p-4 rounded-md mb-4 transition-all ${activeSound === sound.id ? 'bg-white/20' : 'bg-stone-50 dark:bg-stone-950 group-hover:scale-110'}`}>
               {React.cloneElement(sound.icon, { className: "w-8 h-8" })}
             </div>
             <span className="font-semibold text-sm tracking-tight">{sound.name}</span>
@@ -130,24 +130,24 @@ export default function ZenSoundscapes() {
         ))}
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
+      <div className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="flex items-center gap-6">
-             <div className={`p-5 rounded-md ${activeSound ? 'bg-zinc-900 text-white animate-pulse' : 'bg-zinc-100 dark:bg-zinc-950 text-slate-400'}`}>
+             <div className={`p-5 rounded-md ${activeSound ? 'zen-btn-primary animate-pulse' : 'bg-stone-100 dark:bg-stone-950 text-stone-400'}`}>
                 {activeSound ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
              </div>
              <div>
-               <h4 className="text-base font-semibold text-slate-800 dark:text-zinc-50">
+               <h4 className="text-base font-semibold text-stone-800 dark:text-stone-50">
                  {activeSound ? SOUNDS.find(s => s.id === activeSound)?.name : 'System Silent'}
                </h4>
-               <p className="text-sm font-semibold uppercase tracking-widest text-slate-400">
+               <p className="text-sm font-semibold uppercase tracking-widest text-stone-400">
                  {activeSound ? 'Active Soundscape' : 'Select a sound to begin'}
                </p>
              </div>
           </div>
 
           <div className="flex-1 w-full max-w-md space-y-3">
-             <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest text-slate-400 px-1">
+             <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest text-stone-400 px-1">
                <span>Mute</span>
                <span>Intensity</span>
              </div>
@@ -158,14 +158,14 @@ export default function ZenSoundscapes() {
                step="0.01"
                value={volume}
                onChange={handleVolumeChange}
-               className="w-full h-3 bg-zinc-100 dark:bg-zinc-800 rounded-md appearance-none cursor-pointer accent-blue-600"
+               className="w-full h-3 bg-stone-100 dark:bg-stone-800 rounded-md appearance-none cursor-pointer accent-blue-600"
              />
           </div>
 
           <button
             onClick={stopAll}
             disabled={!activeSound}
-            className="px-8 py-4 rounded-md bg-slate-950 text-white font-semibold hover:bg-red-600 transition-all disabled:opacity-0"
+            className="px-8 py-4 rounded-md bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:text-stone-950 dark:hover:bg-red-400 font-medium transition-all disabled:opacity-0"
           >
             Stop All
           </button>

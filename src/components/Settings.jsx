@@ -47,23 +47,23 @@ const Settings = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="bg-white dark:bg-zinc-900 rounded-md p-8 border border-zinc-200 dark:border-zinc-800 shadow-sm shadow-slate-200/50 dark:shadow-none">
+      <div className="bg-white dark:bg-stone-900 rounded-md p-8 border border-stone-200 dark:border-stone-800 shadow-sm shadow-stone-200/50 dark:shadow-none">
         
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-blue-100 dark:bg-blue-900/30 text-zinc-900 dark:text-zinc-100 rounded-md">
+          <div className="p-3 bg-orange-100 dark:bg-orange-900/30 text-stone-900 dark:text-stone-100 rounded-md">
             <ShieldAlert className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">Data Management</h3>
-            <p className="text-zinc-500 dark:text-zinc-400">Your data never leaves your device. Manage your local storage here.</p>
+            <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-50">Data Management</h3>
+            <p className="text-stone-500 dark:text-stone-400">Your data never leaves your device. Manage your local storage here.</p>
           </div>
         </div>
 
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-zinc-50 dark:bg-zinc-800/50 rounded-md border border-zinc-100 dark:border-zinc-800">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-stone-50 dark:bg-stone-800/50 rounded-md border border-stone-100 dark:border-stone-800">
             <div>
-              <h4 className="font-semibold text-zinc-900 dark:text-zinc-50 text-sm">Export Data</h4>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Download all your habits, notes, and settings as a JSON file.</p>
+              <h4 className="font-semibold text-stone-900 dark:text-stone-50 text-sm">Export Data</h4>
+              <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">Download all your habits, notes, and settings as a JSON file.</p>
             </div>
             <button 
               onClick={handleExport}
@@ -74,10 +74,10 @@ const Settings = () => {
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-zinc-50 dark:bg-zinc-800/50 rounded-md border border-zinc-100 dark:border-zinc-800">
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center p-6 bg-stone-50 dark:bg-stone-800/50 rounded-md border border-stone-100 dark:border-stone-800">
             <div>
-              <h4 className="font-semibold text-zinc-900 dark:text-zinc-50 text-sm">Import Data</h4>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Restore your data from a previous JSON backup file.</p>
+              <h4 className="font-semibold text-stone-900 dark:text-stone-50 text-sm">Import Data</h4>
+              <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">Restore your data from a previous JSON backup file.</p>
             </div>
             <div className="w-full sm:w-auto relative">
               <input 
@@ -87,7 +87,7 @@ const Settings = () => {
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 title="Select backup file"
               />
-              <button className="flex items-center gap-2 px-6 py-3 bg-zinc-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-zinc-300 font-semibold rounded-md transition-all w-full sm:w-auto justify-center">
+              <button className="flex items-center gap-2 px-6 py-3 bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-semibold rounded-md transition-all w-full sm:w-auto justify-center">
                 <Upload className="w-5 h-5" />
                 Import Backup
               </button>
@@ -101,11 +101,11 @@ const Settings = () => {
             </div>
           )}
 
-          <div className="mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800">
+          <div className="mt-12 pt-8 border-t border-stone-200 dark:border-stone-800">
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
               <div>
                 <h4 className="font-semibold text-red-600 dark:text-red-400 text-sm">Danger Zone</h4>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Permanently delete all local data from this browser.</p>
+                <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">Permanently delete all local data from this browser.</p>
               </div>
               <button 
                 onClick={handleClear}

@@ -63,14 +63,14 @@ function App() {
   return (
     <div className="min-h-screen flex flex-col font-mono transition-colors duration-200">
       {/* Header */}
-      <header className="border-b border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-stone-200 dark:border-stone-800/80 bg-stone-50/80 dark:bg-stone-950/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-md flex items-center justify-center bg-zinc-900 text-zinc-50 dark:bg-zinc-100 dark:text-zinc-900 border border-transparent">
+            <div className="w-6 h-6 rounded-md flex items-center justify-center bg-stone-900 text-stone-50 dark:bg-stone-100 dark:text-stone-900 border border-transparent">
               <Sparkles className="w-3 h-3" />
             </div>
             <div>
-              <h1 className="text-sm font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">Zen Tools</h1>
+              <h1 className="text-sm font-semibold tracking-tight text-stone-900 dark:text-stone-50">Zen Tools</h1>
             </div>
           </div>
 
@@ -81,8 +81,8 @@ function App() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs transition-all ${
                   activeTab === tab.id
-                    ? 'zen-card shadow-sm font-medium text-zinc-900 dark:text-zinc-50'
-                    : 'text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800'
+                    ? 'zen-card shadow-sm font-medium text-stone-900 dark:text-stone-50'
+                    : 'text-stone-500 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800'
                 }`}
               >
                 {tab.icon}
@@ -94,7 +94,7 @@ function App() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setIsDark(!isDark)}
-              className="p-1.5 rounded-md text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all"
+              className="p-1.5 rounded-md text-stone-500 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800 transition-all"
             >
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
@@ -102,7 +102,7 @@ function App() {
               href="https://github.com/Mosiuropu/zen-tools" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-2 p-1.5 rounded-md text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all"
+              className="hidden sm:flex items-center gap-2 p-1.5 rounded-md text-stone-500 dark:text-stone-400 hover:bg-stone-200 dark:hover:bg-stone-800 transition-all"
             >
               <Github className="w-4 h-4" />
             </a>
@@ -113,7 +113,7 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 md:py-12">
         <div className="mb-10 space-y-2">
-          <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 dark:text-zinc-50 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-semibold text-stone-900 dark:text-stone-50 tracking-tight">
             {activeTab === 'units' && "Convert units seamlessly."}
             {activeTab === 'age' && "Compare ages with precision."}
             {activeTab === 'countdown' && "Track your next milestone."}
@@ -126,7 +126,7 @@ function App() {
             {activeTab === 'clock' && "Master your current moment."}
             {activeTab === 'settings' && "Manage your local data."}
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 text-xs md:text-sm">
+          <p className="text-stone-500 dark:text-stone-400 text-xs md:text-sm">
             Minimal. Local. Ad-free.
           </p>
         </div>
@@ -147,15 +147,15 @@ function App() {
       </main>
 
       {/* Mobile Nav */}
-      <nav className="xl:hidden fixed bottom-4 left-4 right-4 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md border border-zinc-200 dark:border-zinc-800 p-1.5 rounded-md flex justify-start sm:justify-center shadow-lg z-50 overflow-x-auto no-scrollbar gap-1">
+      <nav className="xl:hidden fixed bottom-4 left-4 right-4 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border border-stone-200 dark:border-stone-800 p-1.5 rounded-md flex justify-start sm:justify-center shadow-lg z-50 overflow-x-auto no-scrollbar gap-1">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={`flex flex-col items-center justify-center gap-1 p-2 min-w-[56px] rounded-md transition-all ${
               activeTab === tab.id
-                ? 'zen-card text-zinc-900 dark:text-zinc-50'
-                : 'text-zinc-500 dark:text-zinc-400'
+                ? 'zen-card text-stone-900 dark:text-stone-50'
+                : 'text-stone-500 dark:text-stone-400'
             }`}
           >
             {tab.icon}
@@ -165,14 +165,14 @@ function App() {
       </nav>
 
       {/* Footer */}
-      <footer className="py-6 border-t border-zinc-200 dark:border-zinc-800/80 mt-auto mb-20 xl:mb-0">
+      <footer className="py-6 border-t border-stone-200 dark:border-stone-800/80 mt-auto mb-20 xl:mb-0">
         <div className="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2 text-zinc-500 dark:text-zinc-400 text-xs font-medium">
+          <div className="flex items-center gap-2 text-stone-500 dark:text-stone-400 text-xs font-medium">
             <Shield className="w-3 h-3" />
             <span>Open Source • No Tracking • No Ads</span>
           </div>
           <div className="flex gap-4">
-            <a href="https://github.com/Mosiuropu/zen-tools" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-50 transition-colors text-xs font-medium">GitHub</a>
+            <a href="https://github.com/Mosiuropu/zen-tools" className="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-50 transition-colors text-xs font-medium">GitHub</a>
           </div>
         </div>
       </footer>

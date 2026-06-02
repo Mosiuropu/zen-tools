@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Brain, Volume2, VolumeX, Settings2 } from 'lucide-react';
 
 const MODES = {
-  focus: { label: 'Focus', minutes: 25, color: 'text-zinc-900 dark:text-blue-500', bg: 'bg-zinc-900/10 dark:bg-blue-500/10', border: 'border-blue-600 dark:border-blue-500' },
+  focus: { label: 'Focus', minutes: 25, color: 'text-stone-900 dark:text-orange-500', bg: 'bg-stone-900/10 dark:bg-orange-500/10', border: 'border-blue-600 dark:border-orange-500' },
   short: { label: 'Short Break', minutes: 5, color: 'text-emerald-600 dark:text-emerald-500', bg: 'bg-emerald-600/10 dark:bg-emerald-500/10', border: 'border-emerald-600 dark:border-emerald-500' },
   long: { label: 'Long Break', minutes: 15, color: 'text-violet-600 dark:text-violet-500', bg: 'bg-violet-600/10 dark:bg-violet-500/10', border: 'border-violet-600 dark:border-violet-500' }
 };
@@ -87,7 +87,7 @@ export default function ZenFocus() {
             className={`px-6 py-2 rounded-md font-semibold text-sm transition-all ${
               mode === key 
                 ? `${data.bg} ${data.color}` 
-                : 'bg-white dark:bg-zinc-900 text-slate-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-slate-300 shadow-sm border border-zinc-100 dark:border-zinc-800'
+                : 'bg-white dark:bg-stone-900 text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 shadow-sm border border-stone-100 dark:border-stone-800'
             }`}
           >
             {data.label}
@@ -95,9 +95,9 @@ export default function ZenFocus() {
         ))}
       </div>
 
-      <div className={`bg-white dark:bg-zinc-900 border-4 ${MODES[mode].border} border-opacity-20 rounded-[4rem] p-16 shadow-2xl flex flex-col items-center space-y-10 transition-all duration-500`}>
+      <div className={`bg-white dark:bg-stone-900 border-4 ${MODES[mode].border} border-opacity-20 rounded-[4rem] p-16 shadow-2xl flex flex-col items-center space-y-10 transition-all duration-500`}>
         <div className="text-center space-y-2">
-          <div className="text-9xl font-semibold text-zinc-900 dark:text-zinc-50 tabular-nums tracking-tighter">
+          <div className="text-4xl font-semibold text-stone-900 dark:text-stone-50 tabular-nums tracking-tighter">
             {formatTime(timeLeft)}
           </div>
           <p className={`font-semibold uppercase tracking-[0.3em] text-sm ${MODES[mode].color}`}>
@@ -108,7 +108,7 @@ export default function ZenFocus() {
         <div className="flex items-center gap-8">
           <button
             onClick={resetTimer}
-            className="p-4 rounded-md bg-zinc-50 dark:bg-zinc-950 text-slate-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-slate-100 hover:bg-zinc-100 dark:hover:bg-slate-800 transition-all"
+            className="p-4 rounded-md bg-stone-50 dark:bg-stone-950 text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 transition-all"
           >
             <RotateCcw className="w-8 h-8" />
           </button>
@@ -117,8 +117,8 @@ export default function ZenFocus() {
             onClick={toggleTimer}
             className={`w-24 h-24 rounded-md flex items-center justify-center transition-all active:scale-90 shadow-2xl ${
               isActive 
-                ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-50' 
-                : 'bg-zinc-900 text-white hover:bg-blue-500 shadow-blue-900/40'
+                ? 'bg-stone-100 dark:bg-stone-800 text-stone-900 dark:text-stone-50' 
+                : 'zen-btn-primary'
             }`}
           >
             {isActive ? <Pause className="w-10 h-10 fill-current" /> : <Play className="w-10 h-10 fill-current ml-1" />}
@@ -126,7 +126,7 @@ export default function ZenFocus() {
 
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-4 rounded-md bg-zinc-50 dark:bg-zinc-950 text-slate-400 dark:text-zinc-600 hover:text-zinc-900 dark:hover:text-slate-100 hover:bg-zinc-100 dark:hover:bg-slate-800 transition-all"
+            className="p-4 rounded-md bg-stone-50 dark:bg-stone-950 text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-800 transition-all"
           >
             {soundEnabled ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
           </button>
@@ -134,30 +134,30 @@ export default function ZenFocus() {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-md p-6 flex items-center gap-4 shadow-sm">
-          <div className="p-3 bg-zinc-900/10 dark:bg-blue-500/10 rounded-md text-zinc-900 dark:text-blue-500">
+        <div className="bg-white dark:bg-stone-900/50 border border-stone-200 dark:border-stone-800 rounded-md p-6 flex items-center gap-4 shadow-sm">
+          <div className="p-3 bg-stone-900/10 dark:bg-orange-500/10 rounded-md text-stone-900 dark:text-orange-500">
             <Brain className="w-6 h-6" />
           </div>
           <div>
-            <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">{sessionCount}</div>
-            <div className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 dark:text-zinc-500">Total Pomodoros</div>
+            <div className="text-sm font-semibold text-stone-900 dark:text-stone-50">{sessionCount}</div>
+            <div className="text-[10px] font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500">Total Pomodoros</div>
           </div>
         </div>
 
         <button
           onClick={() => setAutoStart(!autoStart)}
-          className={`bg-white dark:bg-zinc-900/50 border rounded-md p-6 flex items-center justify-between transition-all shadow-sm ${autoStart ? 'border-blue-600/50 dark:border-blue-500/50' : 'border-zinc-200 dark:border-zinc-800'}`}
+          className={`bg-white dark:bg-stone-900/50 border rounded-md p-6 flex items-center justify-between transition-all shadow-sm ${autoStart ? 'border-blue-600/50 dark:border-orange-500/50' : 'border-stone-200 dark:border-stone-800'}`}
         >
           <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-md ${autoStart ? 'bg-zinc-900/20 dark:bg-blue-500/20 text-zinc-900 dark:text-zinc-100' : 'bg-zinc-50 dark:bg-zinc-950 text-slate-300 dark:text-slate-700'}`}>
+            <div className={`p-3 rounded-md ${autoStart ? 'bg-stone-900/20 dark:bg-orange-500/20 text-stone-900 dark:text-stone-100' : 'bg-stone-50 dark:bg-stone-950 text-stone-300 dark:text-stone-700'}`}>
               <Settings2 className="w-6 h-6" />
             </div>
             <div className="text-left">
-              <div className={`text-sm font-semibold ${autoStart ? 'text-zinc-900 dark:text-zinc-50' : 'text-slate-400 dark:text-zinc-500'}`}>Auto-Transition</div>
-              <div className="text-[10px] font-semibold uppercase tracking-widest text-slate-300 dark:text-zinc-600">{autoStart ? 'Enabled' : 'Disabled'}</div>
+              <div className={`text-sm font-semibold ${autoStart ? 'text-stone-900 dark:text-stone-50' : 'text-stone-400 dark:text-stone-500'}`}>Auto-Transition</div>
+              <div className="text-[10px] font-semibold uppercase tracking-widest text-stone-300 dark:text-stone-600">{autoStart ? 'Enabled' : 'Disabled'}</div>
             </div>
           </div>
-          <div className={`w-10 h-6 rounded-md p-1 transition-all ${autoStart ? 'bg-zinc-900' : 'bg-zinc-200 dark:bg-zinc-800'}`}>
+          <div className={`w-10 h-6 rounded-md p-1 transition-all ${autoStart ? 'bg-stone-900' : 'bg-stone-200 dark:bg-stone-800'}`}>
             <div className={`w-4 h-4 bg-white rounded-md transition-all ${autoStart ? 'translate-x-4' : 'translate-x-0'}`} />
           </div>
         </button>

@@ -111,10 +111,10 @@ export default function UnitConverter() {
           <button
             key={key}
             onClick={() => setCategory(key)}
-            className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all ${
+            className={`flex flex-col items-center justify-center p-4 rounded-md border-2 transition-all ${
               category === key 
-                ? 'bg-[#D97757]/10 border-blue-500 text-[#D97757] dark:text-[#E28F73]' 
-                : 'bg-white dark:bg-[#2A2A29] border-[#E6E4E0] dark:border-[#3A3A39] text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
+                ? 'bg-zinc-900/10 border-blue-500 text-zinc-900 dark:text-zinc-100' 
+                : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-slate-400 hover:border-slate-300 dark:hover:border-slate-700'
             }`}
           >
             {data.icon}
@@ -123,21 +123,21 @@ export default function UnitConverter() {
         ))}
       </div>
 
-      <div className="bg-white dark:bg-[#2A2A29] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-3xl p-8 shadow-2xl space-y-6">
+      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md p-8 shadow-2xl space-y-6">
         <div className="grid md:grid-cols-[1fr,auto,1fr] gap-4 items-end">
           <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-[#73716D] ml-1">From</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">From</label>
             <div className="relative">
               <input
                 type="number"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="w-full bg-[#F9F8F6] dark:bg-[#1E1D1B] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-xl px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-[#D97757] dark:focus:ring-[#E28F73]/50 transition-all dark:text-[#E8E6E3]"
+                className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100/50 transition-all dark:text-zinc-50"
               />
               <select
                 value={fromUnit}
                 onChange={(e) => setFromUnit(e.target.value)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-[#2A2A29] border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-[#B5B3AD]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-zinc-900 border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-zinc-300"
               >
                 {units[category].custom 
                   ? units[category].units.map(u => <option key={u} value={u}>{u}</option>)
@@ -149,21 +149,21 @@ export default function UnitConverter() {
 
           <button 
             onClick={swapUnits}
-            className="p-3 rounded-full bg-[#F0EFEA] dark:bg-[#3A3A39] hover:bg-[#E6E4E0] dark:hover:bg-slate-700 text-[#73716D] dark:text-[#8C8A86] transition-colors mb-1 shadow-lg"
+            className="p-3 rounded-md bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-slate-700 text-zinc-500 dark:text-zinc-400 transition-colors mb-1 shadow-sm"
           >
             <Repeat className="w-5 h-5" />
           </button>
 
           <div className="space-y-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-[#73716D] ml-1">To</label>
+            <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 ml-1">To</label>
             <div className="relative">
-              <div className="w-full bg-[#F9F8F6] dark:bg-[#1E1D1B] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-xl px-4 py-3 text-lg min-h-[54px] flex items-center dark:text-[#E8E6E3] font-bold">
+              <div className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-md px-4 py-3 text-sm min-h-[54px] flex items-center dark:text-zinc-50 font-semibold">
                 {result || '0'}
               </div>
               <select
                 value={toUnit}
                 onChange={(e) => setToUnit(e.target.value)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-[#2A2A29] border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-[#B5B3AD]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white dark:bg-zinc-900 border-none rounded-lg py-1 px-2 text-sm font-medium focus:ring-0 cursor-pointer dark:text-zinc-300"
               >
                 {units[category].custom 
                   ? units[category].units.map(u => <option key={u} value={u}>{u}</option>)

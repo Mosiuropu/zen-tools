@@ -3,13 +3,18 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "sans-serif";
-  --font-serif: "ui-serif", "Georgia", "Cambria", "Times New Roman", "Times", "serif";
+  --font-sans: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-serif: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @layer base {
   body {
-    @apply bg-[#F9F8F6] text-[#2D2D2D] dark:bg-[#1E1D1B] dark:text-[#E8E6E3] font-sans transition-colors duration-300 antialiased;
+    @apply bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 font-mono antialiased transition-colors duration-200 selection:bg-zinc-300 dark:selection:bg-zinc-700;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
   }
 }
 
@@ -27,21 +32,21 @@
     transform-origin: top center;
   }
 
-  /* Custom Claude-like card styles */
+  /* Architectural Terminal Aesthetic Classes */
   .zen-card {
-    @apply bg-white dark:bg-[#2A2A29] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-2xl shadow-sm;
+    @apply bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800/80 rounded-md shadow-sm backdrop-blur-sm;
   }
   
   .zen-input {
-    @apply bg-[#F9F8F6] dark:bg-[#1E1D1B] border border-[#E6E4E0] dark:border-[#3A3A39] rounded-xl focus:ring-1 focus:ring-[#D97757] focus:border-[#D97757] dark:focus:ring-[#E28F73] dark:focus:border-[#E28F73] outline-none transition-all;
+    @apply bg-zinc-50 dark:bg-zinc-950/50 border border-zinc-200 dark:border-zinc-800 rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-600 focus:border-zinc-400 dark:focus:border-zinc-600 outline-none transition-all placeholder:text-zinc-400 dark:placeholder:text-zinc-600;
   }
 
-  .zen-button-primary {
-    @apply bg-[#D97757] hover:bg-[#c4684b] text-white dark:bg-[#E28F73] dark:hover:bg-[#d48166] dark:text-[#1E1D1B] transition-colors;
+  .zen-btn-primary {
+    @apply bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-900 transition-all font-medium border border-transparent shadow-sm;
   }
 
-  .zen-button-secondary {
-    @apply bg-[#F0EFEA] hover:bg-[#E6E4E0] text-[#5C5A56] dark:bg-[#3A3A39] dark:hover:bg-[#4A4A49] dark:text-[#B5B3AD] transition-colors border border-transparent dark:border-transparent;
+  .zen-btn-secondary {
+    @apply bg-white hover:bg-zinc-50 text-zinc-700 dark:bg-zinc-900 dark:hover:bg-zinc-800 dark:text-zinc-300 transition-all font-medium border border-zinc-200 dark:border-zinc-800 shadow-sm;
   }
 }
 

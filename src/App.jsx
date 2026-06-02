@@ -14,7 +14,8 @@ import {
   Wind,
   Sun,
   Moon,
-  Clock
+  Clock,
+  Settings as SettingsIcon
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
@@ -26,6 +27,7 @@ import ZenPriorities from './components/ZenPriorities';
 import ZenBreathing from './components/ZenBreathing';
 import ZenSoundscapes from './components/ZenSoundscapes';
 import ZenClock from './components/ZenClock';
+import Settings from './components/Settings';
 
 function App() {
   const [activeTab, setActiveTab] = useState('units');
@@ -55,6 +57,7 @@ function App() {
     { id: 'sounds', label: 'Sounds', icon: <Music className="w-5 h-5" /> },
     { id: 'clock', label: 'Clock', icon: <Clock className="w-5 h-5" /> },
     { id: 'countdown', label: 'Timer', icon: <Timer className="w-5 h-5" /> },
+    { id: 'settings', label: 'Data', icon: <SettingsIcon className="w-5 h-5" /> },
   ];
 
   return (
@@ -72,12 +75,12 @@ function App() {
             </div>
           </div>
 
-          <nav className="hidden xl:flex bg-slate-100 dark:bg-slate-900/50 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <nav className="hidden xl:flex bg-slate-100 dark:bg-slate-900/50 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-800 flex-wrap justify-center">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-xl font-bold text-sm transition-all ${
                   activeTab === tab.id
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20'
                     : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
@@ -123,6 +126,7 @@ function App() {
             {activeTab === 'breathing' && "Take a moment to reset."}
             {activeTab === 'sounds' && "Curate your ambient workspace."}
             {activeTab === 'clock' && "Master your current moment."}
+            {activeTab === 'settings' && "Your data belongs to you."}
           </h2>
           <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto">
             A tool built for people who value time and clarity. No ads, no trackers, just clean functionality.
@@ -140,11 +144,12 @@ function App() {
           {activeTab === 'breathing' && <ZenBreathing />}
           {activeTab === 'sounds' && <ZenSoundscapes />}
           {activeTab === 'clock' && <ZenClock />}
+          {activeTab === 'settings' && <Settings />}
         </div>
       </main>
 
       {/* Mobile Nav */}
-      <nav className="xl:hidden fixed bottom-6 left-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 p-2 rounded-3xl flex justify-between shadow-2xl z-50 overflow-x-auto no-scrollbar">
+      <nav className="xl:hidden fixed bottom-6 left-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200 dark:border-slate-800 p-2 rounded-3xl flex justify-start sm:justify-between shadow-2xl z-50 overflow-x-auto no-scrollbar gap-1">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -162,7 +167,7 @@ function App() {
       </nav>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-slate-200 dark:border-slate-900 mt-20">
+      <footer className="py-12 border-t border-slate-200 dark:border-slate-900 mt-20 mb-24 xl:mb-0">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-500 font-medium">
             <Shield className="w-4 h-4" />

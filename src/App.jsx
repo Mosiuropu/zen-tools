@@ -13,7 +13,8 @@ import {
   Target, 
   Wind,
   Sun,
-  Moon
+  Moon,
+  Clock
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';

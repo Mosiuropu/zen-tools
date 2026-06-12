@@ -23,7 +23,8 @@ import {
   Palette,
   Globe,
   Command,
-  LayoutDashboard
+  LayoutDashboard,
+  History
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
@@ -45,6 +46,7 @@ import ZenWorldClock from './components/ZenWorldClock';
 import CommandPalette from './components/CommandPalette';
 import MobileMenu from './components/MobileMenu';
 import HomePage from './components/HomePage';
+import ZenEvents from './components/ZenEvents';
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
@@ -68,6 +70,7 @@ function App() {
     { id: 'home', label: 'Home', icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: 'units', label: 'Units', icon: <Ruler className="w-4 h-4" /> },
     { id: 'age', label: 'Age', icon: <Calendar className="w-4 h-4" /> },
+    { id: 'events', label: 'Events', icon: <History className="w-4 h-4" /> },
     { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-4 h-4" /> },
     { id: 'focus', label: 'Focus', icon: <Brain className="w-4 h-4" /> },
     { id: 'notes', label: 'Notes', icon: <FileText className="w-4 h-4" /> },
@@ -165,6 +168,7 @@ function App() {
                 {activeTab === 'password' && "Generate strong, private passwords."}
                 {activeTab === 'text' && "Inspect and reshape your text."}
                 {activeTab === 'color' && "Build a palette you love."}
+                {activeTab === 'events' && "Visualize your life events."}
                 {activeTab === 'settings' && "Manage your local data."}
               </h2>
               <p className="text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] text-xs md:text-sm">
@@ -192,6 +196,7 @@ function App() {
           {activeTab === 'password' && <ZenPassword />}
           {activeTab === 'text' && <ZenText />}
           {activeTab === 'color' && <ZenColor />}
+          {activeTab === 'events' && <ZenEvents />}
           {activeTab === 'settings' && <Settings />}
         </div>
       </main>

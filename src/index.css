@@ -7,27 +7,23 @@
   --font-serif: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* House of Thol Light / Odysseus Dark */
-  --color-zen-bg-light: #F5F0E8;
-  --color-zen-bg-dark: #0A0A0F;
-  
-  --color-zen-card-light: #FAF7F2;
-  --color-zen-card-dark: #14141A;
-  
-  --color-zen-text-light: #3D3229;
-  --color-zen-text-dark: #E4E4EB;
-  
-  --color-zen-muted-light: #8B7D6B;
-  --color-zen-muted-dark: #6B6B7B;
-  
-  --color-zen-border-light: #E0D5C5;
-  --color-zen-border-dark: #252530;
-  
-  --color-zen-accent-primary-light: #7A8B5E;
-  --color-zen-accent-hover-light: #5D6E44;
-  
-  --color-zen-accent-primary-dark: #818CF8;
-  --color-zen-accent-hover-dark: #6366F1;
+  /* ── Light theme: warm earthy (House of Thol inspired) ── */
+  --color-zen-bg-light: #D6CCB8;
+  --color-zen-card-light: #FFFFFF;
+  --color-zen-text-light: #1C1612;
+  --color-zen-muted-light: #5C4E3F;
+  --color-zen-border-light: #B09B82;
+  --color-zen-accent-primary-light: #4F6A33;
+  --color-zen-accent-hover-light: #3B5026;
+
+  /* ── Dark theme: deep terminal (Odysseus inspired) ── */
+  --color-zen-bg-dark: #08080C;
+  --color-zen-card-dark: #323242;
+  --color-zen-text-dark: #ECECF2;
+  --color-zen-muted-dark: #A0A0AE;
+  --color-zen-border-dark: #4A4A60;
+  --color-zen-accent-primary-dark: #A5B4FC;
+  --color-zen-accent-hover-dark: #818CF8;
 }
 
 @layer base {

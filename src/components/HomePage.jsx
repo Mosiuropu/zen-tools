@@ -30,6 +30,7 @@ import {
   Sun,
   Search,
   X,
+  History,
 } from 'lucide-react';
 
 const tools = [
@@ -49,13 +50,14 @@ const tools = [
   { id: 'password', icon: KeyRound, title: 'Password Generator', desc: 'Cryptographically secure passwords with a live entropy meter.', color: 'from-teal-500/20 to-emerald-500/20' },
   { id: 'text', icon: Type, title: 'Text Toolkit', desc: 'Live word stats and nine one-click case transforms.', color: 'from-orange-500/20 to-amber-500/20' },
   { id: 'color', icon: Palette, title: 'Color Palette', desc: 'Generate harmonious palettes, lock shades, copy hex with a click.', color: 'from-purple-500/20 to-fuchsia-500/20' },
+  { id: 'events', icon: History, title: 'Event Timeline', desc: 'Visualize life events by day, week, month, or year.', color: 'from-rose-500/20 to-pink-500/20' },
 ];
 
 const stats = [
   { icon: Zap, label: 'Zero Tracking', value: '100%' },
   { icon: Gauge, label: 'Performance', value: 'Lightning' },
   { icon: Lock, label: 'Privacy First', value: 'Local-Only' },
-  { icon: Layers, label: 'Tools', value: '16+' },
+  { icon: Layers, label: 'Tools', value: '17+' },
 ];
 
 const testimonials = [
@@ -189,7 +191,7 @@ export default function HomePage({ onNavigate, isDark, onToggleTheme }) {
               Everything you need, nothing you don't
             </h2>
             <p className="text-sm text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] max-w-lg mx-auto mb-6">
-              Sixteen thoughtfully crafted tools, each designed with one thing in mind: getting out of your way.
+              Seventeen thoughtfully crafted tools, each designed with one thing in mind: getting out of your way.
             </p>
 
             {/* Search Bar */}

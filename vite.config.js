@@ -17,8 +17,8 @@ export default defineConfig({
         name: 'Zen Tools',
         short_name: 'ZenTools',
         description: 'A minimalist, ad-free suite of world-class productivity tools.',
-        theme_color: '#020617',
-        background_color: '#020617',
+        theme_color: '#08080C',
+        background_color: '#08080C',
         display: 'standalone',
         icons: [
           {

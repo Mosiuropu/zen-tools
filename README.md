@@ -19,6 +19,12 @@ A minimalist, ad-free, and high-performance collection of web utilities designed
 - **Zen Clock:** A combined digital and analog clock featuring a swinging pendulum to visualize the rhythmic flow of time.
 - **Synthetic Soundscapes:** Infinite, algorithmically generated ambient noise (Rain, Ocean, Forest, White Noise) using the Web Audio API.
 - **Countdown Timer:** A distraction-free, beautiful live countdown for your projects and milestones.
+- **World Clock:** Track the time across multiple cities at once, with day/night indicators and offsets from your local time.
+- **Stopwatch:** A precise rAF-driven stopwatch with laps, plus fastest/slowest split highlighting.
+- **Password Generator:** Cryptographically secure passwords (Web Crypto API) with a live entropy meter — everything stays in your browser.
+- **Text Toolkit:** Live word/character/sentence stats and nine one-click case transforms (Title, camelCase, snake_case, and more).
+- **Color Palette:** Generate harmonious palettes, lock the shades you love, and copy any hex with a click.
+- **Command Palette (⌘K):** Jump to any tool instantly and toggle the theme without leaving the keyboard.
 - **Privacy First:** No ads, no tracking scripts, no bloat.
 - **Dark Mode by Default:** Easy on the eyes with a premium deep dark aesthetic.
 - **Responsive Design:** Works flawlessly on desktop, tablets, and mobile.

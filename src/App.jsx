@@ -16,7 +16,13 @@ import {
   Moon,
   Clock,
   Settings as SettingsIcon,
-  BarChartHorizontal
+  BarChartHorizontal,
+  KeyRound,
+  Type,
+  Watch,
+  Palette,
+  Globe,
+  Command
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
@@ -30,9 +36,16 @@ import ZenSoundscapes from './components/ZenSoundscapes';
 import ZenClock from './components/ZenClock';
 import Settings from './components/Settings';
 import ZenTimeline from './components/ZenTimeline';
+import ZenPassword from './components/ZenPassword';
+import ZenText from './components/ZenText';
+import ZenStopwatch from './components/ZenStopwatch';
+import ZenColor from './components/ZenColor';
+import ZenWorldClock from './components/ZenWorldClock';
+import CommandPalette from './components/CommandPalette';
 
 function App() {
   const [activeTab, setActiveTab] = useState('units');
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('zen_theme');
     return saved ? saved === 'dark' : true;
@@ -58,8 +71,13 @@ function App() {
     { id: 'breathing', label: 'Breathing', icon: <Wind className="w-4 h-4" /> },
     { id: 'sounds', label: 'Sounds', icon: <Music className="w-4 h-4" /> },
     { id: 'clock', label: 'Clock', icon: <Clock className="w-4 h-4" /> },
+    { id: 'worldclock', label: 'World', icon: <Globe className="w-4 h-4" /> },
     { id: 'countdown', label: 'Timer', icon: <Timer className="w-4 h-4" /> },
+    { id: 'stopwatch', label: 'Stopwatch', icon: <Watch className="w-4 h-4" /> },
     { id: 'timeline', label: 'Timeline', icon: <BarChartHorizontal className="w-4 h-4" /> },
+    { id: 'password', label: 'Password', icon: <KeyRound className="w-4 h-4" /> },
+    { id: 'text', label: 'Text', icon: <Type className="w-4 h-4" /> },
+    { id: 'color', label: 'Color', icon: <Palette className="w-4 h-4" /> },
     { id: 'settings', label: 'Data', icon: <SettingsIcon className="w-4 h-4" /> },
   ];
 
@@ -96,6 +114,14 @@ function App() {
 
           <div className="flex items-center gap-2">
             <button
+              onClick={() => setPaletteOpen(true)}
+              className="hidden sm:flex items-center gap-2 pl-2 pr-1.5 py-1 rounded-md text-[11px] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)] transition-all"
+            >
+              <Command className="w-3 h-3" />
+              <span>Search</span>
+              <kbd className="text-[9px] px-1 py-0.5 rounded bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]">⌘K</kbd>
+            </button>
+            <button
               onClick={() => setIsDark(!isDark)}
               className="p-1.5 rounded-md text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)] transition-all"
             >
@@ -127,7 +153,12 @@ function App() {
             {activeTab === 'breathing' && "Take a moment to reset."}
             {activeTab === 'sounds' && "Curate your ambient workspace."}
             {activeTab === 'clock' && "Master your current moment."}
+            {activeTab === 'worldclock' && "Keep time across the world."}
+            {activeTab === 'stopwatch' && "Measure every passing second."}
             {activeTab === 'timeline' && "Visualize your year."}
+            {activeTab === 'password' && "Generate strong, private passwords."}
+            {activeTab === 'text' && "Inspect and reshape your text."}
+            {activeTab === 'color' && "Build a palette you love."}
             {activeTab === 'settings' && "Manage your local data."}
           </h2>
           <p className="text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] text-xs md:text-sm">
@@ -146,7 +177,12 @@ function App() {
           {activeTab === 'breathing' && <ZenBreathing />}
           {activeTab === 'sounds' && <ZenSoundscapes />}
           {activeTab === 'clock' && <ZenClock />}
+          {activeTab === 'worldclock' && <ZenWorldClock />}
+          {activeTab === 'stopwatch' && <ZenStopwatch />}
           {activeTab === 'timeline' && <ZenTimeline />}
+          {activeTab === 'password' && <ZenPassword />}
+          {activeTab === 'text' && <ZenText />}
+          {activeTab === 'color' && <ZenColor />}
           {activeTab === 'settings' && <Settings />}
         </div>
       </main>
@@ -182,6 +218,16 @@ function App() {
         </div>
       </footer>
       
+      {/* Command Palette */}
+      <CommandPalette
+        tabs={tabs}
+        open={paletteOpen}
+        setOpen={setPaletteOpen}
+        onSelect={setActiveTab}
+        isDark={isDark}
+        toggleTheme={() => setIsDark(!isDark)}
+      />
+
       {/* Global Sound Player Placeholder (Invisible) */}
       <div id="zen-sound-engine" className="hidden" />
     </div>

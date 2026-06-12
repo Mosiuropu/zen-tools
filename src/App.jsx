@@ -1,30 +1,10 @@
-import React, { useState, useEffect } from 'react';import {
-  Ruler, 
-  Calendar, 
-  Timer, 
-  Github, 
-  Shield, 
-  Sparkles, 
-  CheckCircle2, 
-  Brain, 
-  FileText, 
-  Music, 
-  Target, 
-  Wind,
-  Sun,
-  Moon,
-  Clock,
-  Settings as SettingsIcon,
-  BarChartHorizontal,
-  KeyRound,
-  Type,
-  Watch,
-  Palette,
-  Globe,
-  Command,
-  LayoutDashboard,
-  History,
-  Quote
+import React, { useState, useEffect } from 'react';
+import {
+  Ruler, Calendar, Timer, Github, Shield, Sparkles,
+  CheckCircle2, Brain, FileText, Music, Target, Wind,
+  Sun, Moon, Clock, Settings as SettingsIcon,
+  BarChartHorizontal, KeyRound, Type, Watch, Palette,
+  Globe, Command, LayoutDashboard, History, Quote, ChevronDown
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
@@ -67,15 +47,8 @@ function App() {
     }
   }, [isDark]);
 
-  const tabs = [
-    { id: 'home', label: 'Home', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { id: 'units', label: 'Units', icon: <Ruler className="w-4 h-4" /> },
-    { id: 'age', label: 'Age', icon: <Calendar className="w-4 h-4" /> },
-    { id: 'quotes', label: 'Quotes', icon: <Quote className="w-4 h-4" /> },
-    { id: 'events', label: 'Events', icon: <History className="w-4 h-4" /> },
-    { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-4 h-4" /> },
-    { id: 'focus', label: 'Focus', icon: <Brain className="w-4 h-4" /> },
-    { id: 'notes', label: 'Notes', icon: <FileText className="w-4 h-4" /> },
+  const primaryTabs = ['home', 'units', 'age', 'quotes', 'events', 'habits', 'focus', 'notes'];
+  const secondaryTabs = [
     { id: 'priorities', label: 'Priorities', icon: <Target className="w-4 h-4" /> },
     { id: 'breathing', label: 'Breathing', icon: <Wind className="w-4 h-4" /> },
     { id: 'sounds', label: 'Sounds', icon: <Music className="w-4 h-4" /> },
@@ -89,6 +62,20 @@ function App() {
     { id: 'color', label: 'Color', icon: <Palette className="w-4 h-4" /> },
     { id: 'settings', label: 'Data', icon: <SettingsIcon className="w-4 h-4" /> },
   ];
+
+  const allTabs = [
+    { id: 'home', label: 'Home', icon: <LayoutDashboard className="w-4 h-4" /> },
+    { id: 'units', label: 'Units', icon: <Ruler className="w-4 h-4" /> },
+    { id: 'age', label: 'Age', icon: <Calendar className="w-4 h-4" /> },
+    { id: 'quotes', label: 'Quotes', icon: <Quote className="w-4 h-4" /> },
+    { id: 'events', label: 'Events', icon: <History className="w-4 h-4" /> },
+    { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-4 h-4" /> },
+    { id: 'focus', label: 'Focus', icon: <Brain className="w-4 h-4" /> },
+    { id: 'notes', label: 'Notes', icon: <FileText className="w-4 h-4" /> },
+    ...secondaryTabs,
+  ];
+
+  const [showMoreTabs, setShowMoreTabs] = useState(false);
 
   return (
     <div id="app-root" className="min-h-screen flex flex-col font-mono transition-colors duration-200">
@@ -104,21 +91,57 @@ function App() {
             </div>
           </div>
 
-          <nav className="hidden xl:flex items-center gap-1">
-            {tabs.map((tab) => (
+          <nav className="hidden md:flex items-center gap-1">
+            {primaryTabs.map((id) => {
+              const tab = allTabs.find(t => t.id === id);
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs transition-all ${
+                    activeTab === tab.id
+                      ? 'bg-[var(--color-zen-accent-primary-light)]/10 dark:bg-[var(--color-zen-accent-primary-dark)]/15 text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)] font-medium'
+                      : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:hover:text-[var(--color-zen-text-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
+                  }`}
+                >
+                  {tab.icon}
+                  {tab.label}
+                </button>
+              );
+            })}
+            {/* More dropdown */}
+            <div className="relative">
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs transition-all ${
-                  activeTab === tab.id
-                    ? 'zen-card shadow-sm font-medium text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
-                    : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
+                onClick={() => setShowMoreTabs(!showMoreTabs)}
+                onBlur={() => setTimeout(() => setShowMoreTabs(false), 200)}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs transition-all ${
+                  secondaryTabs.some(t => t.id === activeTab)
+                    ? 'bg-[var(--color-zen-accent-primary-light)]/10 dark:bg-[var(--color-zen-accent-primary-dark)]/15 text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)] font-medium'
+                    : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:hover:text-[var(--color-zen-text-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
                 }`}
               >
-                {tab.icon}
-                {tab.label}
+                <ChevronDown className="w-3.5 h-3.5" />
+                More
               </button>
-            ))}
+              {showMoreTabs && (
+                <div className="absolute right-0 top-full mt-1 w-40 py-1.5 bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-xl shadow-xl z-50">
+                  {secondaryTabs.map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => { setActiveTab(tab.id); setShowMoreTabs(false); }}
+                      className={`flex items-center gap-2 w-full px-3 py-1.5 text-xs transition-all ${
+                        activeTab === tab.id
+                          ? 'text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)] bg-[var(--color-zen-accent-primary-light)]/5 dark:bg-[var(--color-zen-accent-primary-dark)]/10'
+                          : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:hover:text-[var(--color-zen-text-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
+                      }`}
+                    >
+                      {tab.icon}
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           <div className="flex items-center gap-2">

@@ -1,124 +1,144 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Square, Settings2, Wind, Info } from 'lucide-react';
+import { Play, Square, Wind } from 'lucide-react';
 
 const TECHNIQUES = {
   box: {
     name: 'Box Breathing',
-    description: 'The Navy SEAL technique for stress management.',
+    desc: 'Navy SEAL technique · 4-4-4-4',
+    accent: '#E74C3C',
     steps: [
-      { label: 'Inhale', duration: 4, scale: 'scale-150', color: 'bg-orange-500' },
-      { label: 'Hold', duration: 4, scale: 'scale-150', color: 'bg-emerald-500' },
-      { label: 'Exhale', duration: 4, scale: 'scale-100', color: 'bg-violet-500' },
-      { label: 'Hold', duration: 4, scale: 'scale-100', color: 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)]0' }
-    ]
+      { label: 'Inhale', dur: 4, color: '#f59e0b' },
+      { label: 'Hold', dur: 4, color: '#10b981' },
+      { label: 'Exhale', dur: 4, color: '#8b5cf6' },
+      { label: 'Hold', dur: 4, color: '#06b6d4' },
+    ],
   },
   relax: {
     name: '4-7-8 Relax',
-    description: 'Natural tranquilizer for the nervous system.',
+    desc: 'Natural tranquilizer · 4-7-8',
+    accent: '#8b5cf6',
     steps: [
-      { label: 'Inhale', duration: 4, scale: 'scale-150', color: 'bg-orange-500' },
-      { label: 'Hold', duration: 7, scale: 'scale-150', color: 'bg-emerald-500' },
-      { label: 'Exhale', duration: 8, scale: 'scale-100', color: 'bg-violet-500' }
-    ]
-  }
+      { label: 'Inhale', dur: 4, color: '#f59e0b' },
+      { label: 'Hold', dur: 7, color: '#10b981' },
+      { label: 'Exhale', dur: 8, color: '#8b5cf6' },
+    ],
+  },
+  deep: {
+    name: 'Deep Calm',
+    desc: 'Slow deep breathing · 4-2-6',
+    accent: '#06b6d4',
+    steps: [
+      { label: 'Inhale', dur: 4, color: '#f59e0b' },
+      { label: 'Pause', dur: 2, color: '#10b981' },
+      { label: 'Exhale', dur: 6, color: '#8b5cf6' },
+    ],
+  },
 };
 
 export default function ZenBreathing() {
-  const [technique, setTechnique] = useState('box');
-  const [isActive, setIsActive] = useState(false);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [tech, setTech] = useState('box');
+  const [active, setActive] = useState(false);
+  const [stepIdx, setStepIdx] = useState(0);
   const [timeLeft, setTimeLeft] = useState(0);
   const timerRef = useRef(null);
-
-  const activeTech = TECHNIQUES[technique];
-  const currentStep = activeTech.steps[currentStepIndex];
+  const aTech = TECHNIQUES[tech];
+  const curStep = aTech.steps[stepIdx];
+  const totalDur = aTech.steps.reduce((s, st) => s + st.dur, 0);
 
   useEffect(() => {
-    if (isActive) {
-      setTimeLeft(currentStep.duration);
-      
+    if (active && curStep) {
+      setTimeLeft(curStep.dur);
       timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            // Next step
-            setCurrentStepIndex((idx) => (idx + 1) % activeTech.steps.length);
-            return 0; // Will be reset by the effect dependency on currentStepIndex
+        setTimeLeft(p => {
+          if (p <= 1) {
+            setStepIdx(idx => (idx + 1) % aTech.steps.length);
+            return 0;
           }
-          return prev - 1;
+          return p - 1;
         });
       }, 1000);
     } else {
       clearInterval(timerRef.current);
-      setCurrentStepIndex(0);
+      setStepIdx(0);
       setTimeLeft(0);
     }
-    
     return () => clearInterval(timerRef.current);
-  }, [isActive, currentStepIndex, technique]);
+  }, [active, stepIdx, tech]);
 
-  const toggleBreathing = () => setIsActive(!isActive);
+  const pct = curStep ? ((curStep.dur - timeLeft) / curStep.dur) * 100 : 0;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-700">
-      <div className="flex flex-col md:flex-row justify-center gap-4">
+    <div className="max-w-xs mx-auto flex flex-col items-center space-y-4 animate-fade-up">
+      {/* Technique picker */}
+      <div className="flex gap-1.5 p-1 rounded-xl bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]">
         {Object.entries(TECHNIQUES).map(([key, data]) => (
-          <button
-            key={key}
-            onClick={() => { setTechnique(key); setIsActive(false); }}
-            className={`px-8 py-3 rounded-md font-semibold text-sm transition-all border-2 ${
-              technique === key 
-                ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/10 border-orange-500 text-[var(--color-zen-accent-primary)]' 
-                : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:hover:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]'
+          <button key={key} onClick={() => { setTech(key); setActive(false); }}
+            className={`px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition-all ${
+              tech === key ? 'text-white shadow-sm' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:hover:text-[var(--color-zen-text-dark)]'
             }`}
-          >
+            style={tech === key ? { backgroundColor: data.accent } : {}}>
             {data.name}
           </button>
         ))}
       </div>
 
-      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-[4rem] p-12 md:p-24 shadow-2xl flex flex-col items-center justify-center min-h-[500px] relative overflow-hidden">
-        {/* Background Visualizer */}
-        <div 
-          className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-md blur-[80px] opacity-20 transition-all duration-[4000ms] ease-in-out ${isActive ? currentStep.color : 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)]0'}`}
-        />
-
-        {/* The Breathing Circle */}
-        <div className="relative z-10 flex flex-col items-center space-y-12">
-          <div 
-            className={`w-32 h-32 md:w-48 md:h-48 rounded-md border-8 border-white dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] flex items-center justify-center transition-all duration-[4000ms] ease-in-out shadow-2xl ${isActive ? `${currentStep.scale} ${currentStep.color} border-transparent` : 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] scale-100'}`}
-          >
-            <div className="text-sm md:text-base font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] tabular-nums">
-              {isActive ? timeLeft : <Wind className="w-12 h-12 md:w-16 md:h-16 text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]" />}
-            </div>
+      {/* Main circle */}
+      <div className="zen-card p-5 flex flex-col items-center w-full max-w-xs">
+        <div className="relative w-40 h-40 flex items-center justify-center">
+          {/* Ring */}
+          <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full -rotate-90">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="var(--color-zen-border-light)" strokeWidth="6"
+              className="dark:stroke-[var(--color-zen-border-dark)]" />
+            {curStep && (
+              <circle cx="50" cy="50" r="44" fill="none" stroke={curStep.color} strokeWidth="6"
+                strokeDasharray={`${(pct / 100) * 276} 276`} strokeLinecap="round"
+                className="transition-all duration-500" />
+            )}
+          </svg>
+          {/* Inner circle with wave */}
+          <div className="absolute inset-4 rounded-full overflow-hidden" style={{ backgroundColor: curStep?.color || 'transparent', opacity: 0.08 }}>
+            <div className="w-full h-full animate-breathe rounded-full" />
           </div>
-
-          <div className="text-center space-y-2">
-            <h4 className={`text-sm md:text-base font-semibold tracking-tight transition-all duration-500 ${isActive ? 'text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]'}`}>
-              {isActive ? currentStep.label : 'Ready?'}
-            </h4>
-            <p className="text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]0 font-semibold uppercase tracking-[0.2em] text-xs">
-              {isActive ? `${activeTech.name} Active` : activeTech.description}
-            </p>
+          <div className="relative text-center">
+            {active ? (
+              <>
+                <div className="text-xs font-bold uppercase tracking-wider" style={{ color: curStep?.color }}>
+                  {curStep?.label}
+                </div>
+                <div className="text-2xl font-semibold tabular-nums text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] mt-1">
+                  {timeLeft}
+                </div>
+              </>
+            ) : (
+              <Wind className="w-10 h-10 text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]" />
+            )}
           </div>
-
-          <button
-            onClick={toggleBreathing}
-            className={`px-12 py-5 rounded-[2rem] font-semibold text-sm flex items-center gap-3 transition-all active:scale-95 shadow-2xl ${
-              isActive 
-                ? 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] hover:bg-red-500/10 hover:text-red-500' 
-                : 'zen-btn-primary'
-            }`}
-          >
-            {isActive ? <><Square className="w-5 h-5 fill-current" /> Stop</> : <><Play className="w-5 h-5 fill-current" /> Begin Session</>}
-          </button>
         </div>
-      </div>
 
-      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/5 dark:bg-blue-950/20 border border-orange-500/20 rounded-md p-6 flex items-start gap-4">
-        <Info className="w-6 h-6 text-[var(--color-zen-accent-primary)] mt-1 shrink-0" />
-        <p className="text-sm text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)] leading-relaxed">
-          <strong>Tip:</strong> Find a comfortable seated position, keep your back straight, and let your breath flow naturally with the visual pacer. This practice helps lower cortisol and improves mental focus.
+        <p className="text-[10px] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] mt-2 text-center">
+          {active ? `${aTech.name}` : aTech.desc}
         </p>
+
+        <button onClick={() => setActive(!active)}
+          className={`mt-3 flex items-center gap-1.5 px-5 py-2 rounded-xl text-xs font-semibold transition-all active:scale-95 shadow-md ${
+            active ? 'bg-stone-200 dark:bg-stone-700 text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]' : 'text-white'
+          }`}
+          style={!active ? { backgroundColor: aTech.accent } : {}}>
+          {active ? <><Square className="w-3.5 h-3.5" /> Stop</> : <><Play className="w-3.5 h-3.5 fill-current" /> Begin</>}
+        </button>
+
+        {/* Step indicators */}
+        <div className="flex gap-1.5 mt-3">
+          {aTech.steps.map((st, i) => (
+            <div key={i} className="flex items-center gap-1">
+              <div className={`w-2 h-2 rounded-full transition-all ${i === stepIdx && active ? 'scale-125' : ''}`}
+                style={{ backgroundColor: i === stepIdx && active ? st.color : 'var(--color-zen-border-light)' }} />
+              <span className="text-[8px] font-medium text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">
+                {st.dur}s
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

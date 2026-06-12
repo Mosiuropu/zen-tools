@@ -7,23 +7,23 @@
   --font-serif: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* ── Light theme: warm cream (clean, airy) ── */
-  --color-zen-bg-light: #F5F1EB;
+  /* ── Light theme: warm cream with vibrant accents ── */
+  --color-zen-bg-light: #FFF8F0;
   --color-zen-card-light: #FFFFFF;
-  --color-zen-text-light: #1C1C1C;
-  --color-zen-muted-light: #7A6B5D;
-  --color-zen-border-light: #D4C9B8;
-  --color-zen-accent-primary-light: #4F6A33;
-  --color-zen-accent-hover-light: #3B5026;
+  --color-zen-text-light: #1A1A2E;
+  --color-zen-muted-light: #8B7E74;
+  --color-zen-border-light: #E8DDD0;
+  --color-zen-accent-primary-light: #D97757;
+  --color-zen-accent-hover-light: #C0623E;
 
-  /* ── Dark theme: deep terminal ── */
-  --color-zen-bg-dark: #0A0A10;
-  --color-zen-card-dark: #2A2A3E;
-  --color-zen-text-dark: #ECECF2;
-  --color-zen-muted-dark: #8888A0;
-  --color-zen-border-dark: #3E3E56;
-  --color-zen-accent-primary-dark: #A5B4FC;
-  --color-zen-accent-hover-dark: #818CF8;
+  /* ── Dark theme: deep navy with electric accents ── */
+  --color-zen-bg-dark: #0E0E1A;
+  --color-zen-card-dark: #1A1A2E;
+  --color-zen-text-dark: #E2E2F0;
+  --color-zen-muted-dark: #7A7A9A;
+  --color-zen-border-dark: #2A2A44;
+  --color-zen-accent-primary-dark: #6C8CFF;
+  --color-zen-accent-hover-dark: #5A7AEA;
 }
 
 @layer base {
@@ -50,28 +50,27 @@
     transform-origin: top center;
   }
 
-  /* Architectural Terminal Aesthetic Classes */
   .zen-card {
-    @apply bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md shadow-sm;
+    @apply bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-xl shadow-sm;
   }
   
   .zen-input {
-    @apply bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-[var(--color-zen-accent-primary-light)] dark:focus:ring-[var(--color-zen-accent-primary-dark)] focus:border-[var(--color-zen-accent-primary-light)] dark:focus:border-[var(--color-zen-accent-primary-dark)] outline-none transition-all placeholder:text-[var(--color-zen-muted-light)] dark:placeholder:text-[var(--color-zen-muted-dark)];
+    @apply bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-[var(--color-zen-accent-primary-light)]/40 dark:focus:ring-[var(--color-zen-accent-primary-dark)]/40 focus:border-[var(--color-zen-accent-primary-light)] dark:focus:border-[var(--color-zen-accent-primary-dark)] outline-none transition-all placeholder:text-[var(--color-zen-muted-light)] dark:placeholder:text-[var(--color-zen-muted-dark)]/60;
   }
 
   .zen-btn-primary {
-    @apply bg-[var(--color-zen-accent-primary-light)] dark:bg-[var(--color-zen-accent-primary-dark)] text-white hover:bg-[var(--color-zen-accent-hover-light)] dark:hover:bg-[var(--color-zen-accent-hover-dark)] transition-all font-medium border border-transparent shadow-sm rounded-md;
+    @apply bg-[var(--color-zen-accent-primary-light)] dark:bg-[var(--color-zen-accent-primary-dark)] text-white hover:bg-[var(--color-zen-accent-hover-light)] dark:hover:bg-[var(--color-zen-accent-hover-dark)] transition-all font-medium border border-transparent shadow-sm hover:shadow-md rounded-lg active:scale-[0.97];
   }
 
   .zen-btn-secondary {
-    @apply bg-[var(--color-zen-card-light)] hover:bg-[var(--color-zen-border-light)] text-[var(--color-zen-text-light)] dark:bg-[var(--color-zen-card-dark)] dark:hover:bg-[var(--color-zen-border-dark)] dark:text-[var(--color-zen-text-dark)] transition-all font-medium border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] shadow-sm rounded-md;
+    @apply bg-[var(--color-zen-card-light)] hover:bg-[var(--color-zen-border-light)] text-[var(--color-zen-text-light)] dark:bg-[var(--color-zen-card-dark)] dark:hover:bg-[var(--color-zen-border-dark)] dark:text-[var(--color-zen-text-dark)] transition-all font-medium border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] shadow-sm rounded-lg active:scale-[0.97];
   }
 }
 
 @keyframes zen-swing {
-  0% { transform: rotate(15deg); }
-  50% { transform: rotate(-15deg); }
-  100% { transform: rotate(15deg); }
+  0% { transform: rotate(12deg); }
+  50% { transform: rotate(-12deg); }
+  100% { transform: rotate(12deg); }
 }
 
 @keyframes fade-up {
@@ -94,6 +93,16 @@
   50% { transform: translateY(-6px); }
 }
 
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 .animate-fade-up {
   animation: fade-up 0.6s ease-out both;
 }
@@ -108,6 +117,14 @@
 
 .animate-float {
   animation: float 4s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
 
 .animation-delay-100 { animation-delay: 0.1s; }

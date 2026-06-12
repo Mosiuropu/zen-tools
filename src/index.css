@@ -7,21 +7,21 @@
   --font-serif: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* ── Light theme: warm cream (clean, airy) ── */
-  --color-zen-bg-light: #F5F1EB;
+  /* ── Light theme: warm earthy (House of Thol inspired) ── */
+  --color-zen-bg-light: #D6CCB8;
   --color-zen-card-light: #FFFFFF;
-  --color-zen-text-light: #1C1C1C;
-  --color-zen-muted-light: #7A6B5D;
-  --color-zen-border-light: #D4C9B8;
+  --color-zen-text-light: #1C1612;
+  --color-zen-muted-light: #5C4E3F;
+  --color-zen-border-light: #B09B82;
   --color-zen-accent-primary-light: #4F6A33;
   --color-zen-accent-hover-light: #3B5026;
 
-  /* ── Dark theme: deep terminal ── */
-  --color-zen-bg-dark: #0A0A10;
-  --color-zen-card-dark: #2A2A3E;
+  /* ── Dark theme: deep terminal (Odysseus inspired) ── */
+  --color-zen-bg-dark: #08080C;
+  --color-zen-card-dark: #323242;
   --color-zen-text-dark: #ECECF2;
-  --color-zen-muted-dark: #8888A0;
-  --color-zen-border-dark: #3E3E56;
+  --color-zen-muted-dark: #A0A0AE;
+  --color-zen-border-dark: #4A4A60;
   --color-zen-accent-primary-dark: #A5B4FC;
   --color-zen-accent-hover-dark: #818CF8;
 }

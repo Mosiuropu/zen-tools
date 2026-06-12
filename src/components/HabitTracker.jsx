@@ -106,43 +106,43 @@ export default function HabitTracker() {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-5">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-        <div>
-          <h2 className="zen-card p-3 inline-flex items-center gap-2 text-xs font-semibold">
-            <Activity className="w-4 h-4" />
+    <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="space-y-1">
+          <h2 className="text-base font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] flex items-center gap-3">
+            <Activity className="w-8 h-8 text-[var(--color-zen-accent-primary)]" />
             Habit Mastery
           </h2>
-          <p className="text-xs text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] mt-1">Small daily actions lead to massive results.</p>
+          <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] font-medium">Small daily actions lead to massive results.</p>
         </div>
 
-        <div className="flex bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/50 p-0.5 rounded-md border self-stretch md:self-auto">
+        <div className="flex bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)]/50 p-1 rounded-md border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] self-stretch md:self-auto shadow-sm">
           <button 
             onClick={() => setView('daily')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-[11px] font-medium transition-all ${view === 'daily' ? 'zen-card shadow-sm' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:hover:text-[var(--color-zen-text-dark)]'}`}
+            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 rounded-md font-semibold text-sm transition-all ${view === 'daily' ? 'zen-btn-primary' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] dark:hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]'}`}
           >
-            <ListTodo className="w-3.5 h-3.5" />
+            <ListTodo className="w-4 h-4" />
             Daily
           </button>
           <button 
             onClick={() => setView('grid')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-[11px] font-medium transition-all ${view === 'grid' ? 'zen-card shadow-sm' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:hover:text-[var(--color-zen-text-dark)]'}`}
+            className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 rounded-md font-semibold text-sm transition-all ${view === 'grid' ? 'zen-btn-primary' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] dark:hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]'}`}
           >
-            <LayoutGrid className="w-3.5 h-3.5" />
+            <LayoutGrid className="w-4 h-4" />
             Grid
           </button>
         </div>
       </div>
 
-      <form onSubmit={addHabit} className="zen-card p-4 flex flex-col md:flex-row gap-3">
-        <div className="flex-1 flex gap-3 items-center">
-          <div className="flex gap-1.5">
+      <form onSubmit={addHabit} className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md p-6 shadow-sm flex flex-col md:flex-row gap-6">
+        <div className="flex-1 flex gap-4 items-center">
+          <div className="flex gap-2">
             {COLORS.map(color => (
               <button
                 key={color.name}
                 type="button"
                 onClick={() => setSelectedColor(color)}
-                className={`w-5 h-5 rounded transition-all ${color.class} ${selectedColor.name === color.name ? 'ring-2 ring-offset-1 ring-blue-500' : 'opacity-40 hover:opacity-100'}`}
+                className={`w-6 h-6 rounded-md transition-all ${color.class} ${selectedColor.name === color.name ? 'ring-4 ring-offset-4 ring-offset-white dark:ring-offset-stone-900 ring-blue-500' : 'opacity-40 hover:opacity-100'}`}
               />
             ))}
           </div>
@@ -151,14 +151,14 @@ export default function HabitTracker() {
             value={newHabitName}
             onChange={(e) => setNewHabitName(e.target.value)}
             placeholder="New habit (e.g., Meditate 10m)"
-            className="flex-1 bg-transparent border-none text-xs font-semibold focus:ring-0 placeholder-stone-300 dark:placeholder-stone-700"
+            className="flex-1 bg-transparent border-none text-base font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] focus:ring-0 placeholder-stone-300 dark:placeholder-stone-700"
           />
         </div>
         <button
           type="submit"
-          className="zen-btn-primary px-4 py-2 text-xs flex items-center gap-1.5"
+          className="zen-btn-primary px-8 py-3 rounded-md font-semibold transition-all shadow-sm shadow-orange-900/20 active:scale-95 flex items-center justify-center gap-2"
         >
-          <Plus className="w-3.5 h-3.5" />
+          <Plus className="w-5 h-5" />
           Add Habit
         </button>
       </form>
@@ -190,11 +190,11 @@ export default function HabitTracker() {
                           {isDone ? <CheckCircle2 className="w-10 h-10" /> : <Circle className="w-10 h-10" />}
                         </button>
                         <div>
-                          <h3 className={`text-xs font-semibold transition-all ${isDone ? 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] line-through' : ''}`}>
+                          <h3 className={`text-base font-semibold tracking-tight transition-all ${isDone ? 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]0 line-through' : 'text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]'}`}>
                             {habit.name}
                           </h3>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className={`flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider ${streak > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
+                          <div className="flex items-center gap-3 mt-1">
+                            <span className={`flex items-center gap-1 text-xs font-semibold uppercase tracking-widest ${streak > 0 ? 'text-[var(--color-zen-accent-primary)]' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)]'}`}>
                               <Flame className="w-3 h-3 fill-current" />
                               {streak} Day Streak
                             </span>
@@ -217,10 +217,10 @@ export default function HabitTracker() {
                   if (!habit) return null;
                   const streak = calculateStreak(habit.id);
                   return (
-                    <div className="zen-card p-4 sticky top-28 space-y-4">
+                    <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-[2.5rem] p-8 shadow-2xl sticky top-28 space-y-8 animate-in slide-in-from-right-4 duration-500">
                       <div className="flex justify-between items-start">
-                        <div className={`p-2 rounded ${habit.color.class} bg-opacity-10 ${habit.color.text}`}>
-                          <Activity className="w-4 h-4" />
+                        <div className={`p-4 rounded-md ${habit.color.class} bg-opacity-10 ${habit.color.text}`}>
+                          <Activity className="w-8 h-8" />
                         </div>
                         <button 
                           onClick={() => deleteHabit(habit.id)}
@@ -231,8 +231,8 @@ export default function HabitTracker() {
                       </div>
                       
                       <div className="space-y-1">
-                        <h4 className="text-xs font-semibold">{habit.name}</h4>
-                        <p className="text-[10px] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">Tracking since {format(new Date(habit.createdAt), 'MMM d, yyyy')}</p>
+                        <h4 className="text-sm font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]">{habit.name}</h4>
+                        <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)]0 text-sm font-medium">Tracking since {format(new Date(habit.createdAt), 'MMM d, yyyy')}</p>
                       </div>
 
                       <div className="grid grid-cols-1 gap-4">

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Plus, Trash2, CalendarDays, List, LayoutGrid, Clock, Sparkles, Download, Upload, AlertCircle } from 'lucide-react';
-import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear, differenceInDays } from 'date-fns';
+import { format, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from 'date-fns';
 
 const EVENT_COLORS = [
   { bg: '#4F6A33', light: 'rgba(79, 106, 51, 0.12)' },
@@ -22,7 +22,9 @@ const VIEWS = [
 
 function getEventsForView(events, view, referenceDate) {
   const ref = new Date(referenceDate);
+  if (isNaN(ref.getTime())) return [];
   let start, end;
+
   switch (view) {
     case 'day':
       start = new Date(ref);
@@ -45,18 +47,25 @@ function getEventsForView(events, view, referenceDate) {
     default:
       return [];
   }
+  if (!start || !end) return [];
 
-  return events.filter(e => {
+  const validEvents = events.filter(e => {
+    if (!e || !e.date) return false;
     const d = new Date(e.date);
-    return d >= start && d < end;
-  }).sort((a, b) => new Date(a.date) - new Date(b.date));
+    return !isNaN(d.getTime()) && d >= start && d < end;
+  });
+  
+  return validEvents.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
 function getGroupedEvents(events, view) {
   const groups = {};
   events.forEach(e => {
-    let key;
+    if (!e || !e.date) return;
     const d = new Date(e.date);
+    if (isNaN(d.getTime())) return;
+    
+    let key;
     switch (view) {
       case 'day':
         key = format(d, 'yyyy-MM-dd');
@@ -97,6 +106,7 @@ export default function ZenEvents() {
   const [showForm, setShowForm] = useState(false);
   const [importMessage, setImportMessage] = useState(null);
   const fileInputRef = useRef(null);
+  const importTimeoutRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem('zen_events', JSON.stringify(events));
@@ -341,21 +351,35 @@ export default function ZenEvents() {
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (!file) return;
+              
+              // Confirm before replacing existing events
+              if (events.length > 0) {
+                const confirmed = window.confirm(`This will replace all ${events.length} current events with the imported ones. Continue?`);
+                if (!confirmed) {
+                  e.target.value = '';
+                  return;
+                }
+              }
+
               const reader = new FileReader();
               reader.onload = (evt) => {
                 try {
                   const imported = JSON.parse(evt.target.result);
                   if (!Array.isArray(imported)) throw new Error('Invalid format');
-                  // Validate each event has required fields
+                  // Validate and normalize each event
                   imported.forEach((ev, i) => {
-                    if (!ev.id || !ev.date || !ev.title) throw new Error(`Event ${i + 1} missing required fields (id, date, title)`);
+                    if (!ev.id) ev.id = crypto.randomUUID();
+                    if (!ev.date || !ev.title) throw new Error(`Event ${i + 1} missing required fields (date, title)`);
+                    if (ev.color === undefined || ev.color === null) ev.color = 0;
                   });
                   setEvents(imported);
-                  setImportMessage({ type: 'success', text: `Imported ${imported.length} events successfully!` });
-                  setTimeout(() => setImportMessage(null), 3000);
+                  setImportMessage({ type: 'success', text: `Imported ${imported.length} events!` });
+                  if (importTimeoutRef.current) clearTimeout(importTimeoutRef.current);
+                  importTimeoutRef.current = setTimeout(() => setImportMessage(null), 3000);
                 } catch (err) {
                   setImportMessage({ type: 'error', text: `Import failed: ${err.message}` });
-                  setTimeout(() => setImportMessage(null), 4000);
+                  if (importTimeoutRef.current) clearTimeout(importTimeoutRef.current);
+                  importTimeoutRef.current = setTimeout(() => setImportMessage(null), 4000);
                 }
               };
               reader.readAsText(file);

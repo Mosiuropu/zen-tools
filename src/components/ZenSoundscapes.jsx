@@ -115,7 +115,7 @@ export default function ZenSoundscapes() {
           </p>
         </div>
         <input type="range" min="0" max="1" step="0.01" value={volume} onChange={handleVolume}
-          className="w-20 h-1.5 rounded-full appearance-none cursor-pointer accent-[var(--color-zen-accent-primary-light)] dark:accent-[var(--color-zen-accent-primary-dark)]" />
+          className="w-28 h-1.5 rounded-full appearance-none cursor-pointer accent-[var(--color-zen-accent-primary-light)] dark:accent-[var(--color-zen-accent-primary-dark)] bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)]" />
         <button onClick={stopAll} disabled={!activeSound}
           className="px-2.5 py-1.5 rounded-lg text-[10px] font-medium bg-red-500 text-white hover:bg-red-600 transition-all disabled:opacity-30 disabled:cursor-default">
           Stop

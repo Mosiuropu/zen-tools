@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Brain, Volume2, VolumeX, Settings2 } from 'lucide-react';
+import { Play, Pause, RotateCcw, Brain, Volume2, VolumeX } from 'lucide-react';
 
 const MODES = {
   focus: { label: 'Focus', minutes: 25, color: '#E74C3C', text: 'text-red-600 dark:text-red-400', bg: 'bg-red-50 dark:bg-red-900/15' },
@@ -35,6 +35,7 @@ export default function ZenFocus() {
     return saved ? parseInt(saved) : 0;
   });
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [autoStart, setAutoStart] = useState(false);
   const timerRef = useRef(null);
   const totalTime = MODES[mode].minutes * 60;
 
@@ -57,11 +58,16 @@ export default function ZenFocus() {
     if (soundEnabled) {
       new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3').play().catch(() => {});
     }
+    let nextMode;
     if (mode === 'focus') {
       setSessionCount(p => p + 1);
-      switchMode((sessionCount + 1) % 4 === 0 ? 'long' : 'short');
+      nextMode = (sessionCount + 1) % 4 === 0 ? 'long' : 'short';
     } else {
-      switchMode('focus');
+      nextMode = 'focus';
+    }
+    switchMode(nextMode);
+    if (autoStart) {
+      setTimeout(() => setIsActive(true), 1000);
     }
   };
 
@@ -130,6 +136,14 @@ export default function ZenFocus() {
             <Brain className="w-3.5 h-3.5" />
             <span className="font-semibold">{sessionCount} sessions</span>
           </div>
+          <button onClick={() => setAutoStart(!autoStart)}
+            className={`px-2 py-1 rounded-lg text-[9px] font-semibold border transition-all ${
+              autoStart
+                ? 'bg-[var(--color-zen-accent-primary-light)]/10 dark:bg-[var(--color-zen-accent-primary-dark)]/10 border-[var(--color-zen-accent-primary-light)] dark:border-[var(--color-zen-accent-primary-dark)] text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
+                : 'border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'
+            }`}>
+            Auto {autoStart ? 'ON' : 'OFF'}
+          </button>
         </div>
       </div>
     </div>

@@ -1,125 +1,175 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Volume2, VolumeX, CloudRain, Wind, Waves, Coffee, Trees as Forest, Zap, Moon, Flame, Music } from 'lucide-react';
+import { Play, Pause, Volume2, VolumeX, CloudRain, Wind, Waves, Coffee, Trees as Forest, Zap } from 'lucide-react';
 
 const SOUNDS = [
-  { id: 'rain', name: 'Rainfall', icon: <CloudRain />, type: 'rain' },
+  { id: 'rain', name: 'Rainfall', icon: <CloudRain />, url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' }, // Placeholders, but I'll use pure noise synths for better "Zen"
   { id: 'ocean', name: 'Ocean Waves', icon: <Waves />, type: 'ocean' },
   { id: 'forest', name: 'Deep Forest', icon: <Forest />, type: 'forest' },
   { id: 'white', name: 'White Noise', icon: <Zap />, type: 'white' },
   { id: 'cafe', name: 'Zen Cafe', icon: <Coffee />, type: 'cafe' },
-  { id: 'brown', name: 'Brown Noise', icon: <Moon />, type: 'brown' },
-  { id: 'fire', name: 'Campfire', icon: <Flame />, type: 'fire' },
-  { id: 'wind', name: 'Wind', icon: <Wind />, type: 'wind' },
 ];
 
 export default function ZenSoundscapes() {
   const [activeSound, setActiveSound] = useState(null);
-  const [volume, setVolume] = useState(0.4);
+  const [volume, setVolume] = useState(0.5);
   const audioCtx = useRef(null);
   const nodes = useRef({});
 
+  // Initialize Web Audio API for synthetic sounds
   useEffect(() => {
     return () => {
-      if (audioCtx.current) audioCtx.current.close();
+      if (audioCtx.current) {
+        audioCtx.current.close();
+      }
     };
   }, []);
 
   const initAudio = () => {
-    if (!audioCtx.current)
+    if (!audioCtx.current) {
       audioCtx.current = new (window.AudioContext || window.webkitAudioContext)();
+    }
   };
 
   const startNoise = (type) => {
     initAudio();
     stopAll();
-    const bufSize = 2 * audioCtx.current.sampleRate;
-    const buf = audioCtx.current.createBuffer(1, bufSize, audioCtx.current.sampleRate);
-    const out = buf.getChannelData(0);
-    for (let i = 0; i < bufSize; i++) out[i] = Math.random() * 2 - 1;
-    const wNoise = audioCtx.current.createBufferSource();
-    wNoise.buffer = buf;
-    wNoise.loop = true;
+
+    const bufferSize = 2 * audioCtx.current.sampleRate;
+    const buffer = audioCtx.current.createBuffer(1, bufferSize, audioCtx.current.sampleRate);
+    const output = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+
+    const whiteNoise = audioCtx.current.createBufferSource();
+    whiteNoise.buffer = buffer;
+    whiteNoise.loop = true;
+
     const filter = audioCtx.current.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = type === 'white' ? 20000 : type === 'brown' ? 200 : type === 'ocean' ? 500 : type === 'fire' ? 600 : type === 'wind' ? 3000 : 1000;
-    if (type === 'ocean') {
+    
+    if (type === 'white') {
+      filter.type = 'lowpass';
+      filter.frequency.value = 20000;
+    } else if (type === 'ocean') {
+      filter.type = 'lowpass';
+      filter.frequency.value = 500;
+      // Add LFO for wave effect
       const lfo = audioCtx.current.createOscillator();
-      const lfoG = audioCtx.current.createGain();
-      lfo.frequency.value = 0.08;
-      lfoG.gain.value = 400;
-      lfo.connect(lfoG);
-      lfoG.connect(filter.frequency);
+      const lfoGain = audioCtx.current.createGain();
+      lfo.frequency.value = 0.1;
+      lfoGain.gain.value = 300;
+      lfo.connect(lfoGain);
+      lfoGain.connect(filter.frequency);
       lfo.start();
       nodes.current.lfo = lfo;
+    } else if (type === 'forest' || type === 'rain') {
+      filter.type = 'lowpass';
+      filter.frequency.value = 1000;
     }
-    const gain = audioCtx.current.createGain();
-    gain.gain.value = volume;
-    wNoise.connect(filter);
-    filter.connect(gain);
-    gain.connect(audioCtx.current.destination);
-    wNoise.start();
-    nodes.current = { ...nodes.current, source: wNoise, gain };
+
+    const gainNode = audioCtx.current.createGain();
+    gainNode.gain.value = volume;
+
+    whiteNoise.connect(filter);
+    filter.connect(gainNode);
+    gainNode.connect(audioCtx.current.destination);
+
+    whiteNoise.start();
+    
+    nodes.current.source = whiteNoise;
+    nodes.current.gain = gainNode;
     setActiveSound(type);
   };
 
   const stopAll = () => {
-    if (nodes.current.source) { try { nodes.current.source.stop(); } catch {} }
-    if (nodes.current.lfo) { try { nodes.current.lfo.stop(); } catch {} }
+    if (nodes.current.source) {
+      nodes.current.source.stop();
+      nodes.current.source.disconnect();
+    }
+    if (nodes.current.lfo) {
+      nodes.current.lfo.stop();
+      nodes.current.lfo.disconnect();
+    }
     setActiveSound(null);
   };
 
-  const handleVolume = (e) => {
-    const v = parseFloat(e.target.value);
-    setVolume(v);
-    if (nodes.current.gain)
-      nodes.current.gain.gain.setValueAtTime(v, audioCtx.current.currentTime);
+  const handleVolumeChange = (e) => {
+    const val = parseFloat(e.target.value);
+    setVolume(val);
+    if (nodes.current.gain) {
+      nodes.current.gain.gain.setValueAtTime(val, audioCtx.current.currentTime);
+    }
   };
 
   return (
-    <div className="max-w-md mx-auto space-y-3 animate-fade-up">
-      {/* Sound grid - compact 4-column */}
-      <div className="grid grid-cols-4 gap-2">
-        {SOUNDS.map((snd) => {
-          const isActive = activeSound === snd.id;
-          return (
-            <button key={snd.id} onClick={() => isActive ? stopAll() : startNoise(snd.type)}
-              className={`flex flex-col items-center justify-center p-2.5 rounded-xl border-2 transition-all active:scale-95 ${
-                isActive
-                  ? 'border-[var(--color-zen-accent-primary-light)] dark:border-[var(--color-zen-accent-primary-dark)] bg-[var(--color-zen-accent-primary-light)]/10 dark:bg-[var(--color-zen-accent-primary-dark)]/10 shadow-md'
-                  : 'border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)] hover:border-[var(--color-zen-accent-primary-light)]/50 dark:hover:border-[var(--color-zen-accent-primary-dark)]/50'
-              }`}>
-              <div className={`transition-transform ${isActive ? 'scale-110' : ''}`}>
-                {React.cloneElement(snd.icon, {
-                  className: `w-5 h-5 ${isActive ? 'text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`,
-                })}
-              </div>
-              <span className={`text-[9px] font-semibold mt-1 ${isActive ? 'text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
-                {snd.name}
-              </span>
-            </button>
-          );
-        })}
+    <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-700">
+      <div className="text-center space-y-4">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-zen-accent-primary)]">Synthetic Zen</h3>
+        <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] max-w-md mx-auto">
+          Pure, algorithmically generated soundscapes. No loops, no gaps, just infinite focus.
+        </p>
       </div>
 
-      {/* Player controls - compact */}
-      <div className="zen-card p-3 flex items-center gap-3">
-        <div className={`p-2 rounded-lg ${activeSound ? 'text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)] animate-pulse-soft' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
-          {activeSound ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+        {SOUNDS.map((sound) => (
+          <button
+            key={sound.id}
+            onClick={() => activeSound === sound.id ? stopAll() : startNoise(sound.id)}
+            className={`flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 transition-all group ${
+              activeSound === sound.id 
+                ? 'zen-btn-primary border-orange-500 shadow-sm shadow-orange-900/40 scale-105' 
+                : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:border-orange-500/50 hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] dark:hover:text-stone-200'
+            }`}
+          >
+            <div className={`p-4 rounded-md mb-4 transition-all ${activeSound === sound.id ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/20' : 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] group-hover:scale-110'}`}>
+              {React.cloneElement(sound.icon, { className: "w-8 h-8" })}
+            </div>
+            <span className="font-semibold text-sm tracking-tight">{sound.name}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex items-center gap-6">
+             <div className={`p-5 rounded-md ${activeSound ? 'zen-btn-primary animate-pulse' : 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
+                {activeSound ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
+             </div>
+             <div>
+               <h4 className="text-base font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]">
+                 {activeSound ? SOUNDS.find(s => s.id === activeSound)?.name : 'System Silent'}
+               </h4>
+               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">
+                 {activeSound ? 'Active Soundscape' : 'Select a sound to begin'}
+               </p>
+             </div>
+          </div>
+
+          <div className="flex-1 w-full max-w-md space-y-3">
+             <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] px-1">
+               <span>Mute</span>
+               <span>Intensity</span>
+             </div>
+             <input
+               type="range"
+               min="0"
+               max="1"
+               step="0.01"
+               value={volume}
+               onChange={handleVolumeChange}
+               className="w-full h-3 bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] rounded-md appearance-none cursor-pointer accent-blue-600"
+             />
+          </div>
+
+          <button
+            onClick={stopAll}
+            disabled={!activeSound}
+            className="px-8 py-4 rounded-md bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:text-stone-950 dark:hover:bg-[var(--color-zen-border-dark)] font-medium transition-all disabled:opacity-0"
+          >
+            Stop All
+          </button>
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] truncate">
-            {activeSound ? SOUNDS.find(s => s.id === activeSound)?.name : 'Silent'}
-          </p>
-          <p className="text-[9px] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">
-            {activeSound ? 'Active' : 'Select a sound'}
-          </p>
-        </div>
-        <input type="range" min="0" max="1" step="0.01" value={volume} onChange={handleVolume}
-          className="w-20 h-1.5 rounded-full appearance-none cursor-pointer accent-[var(--color-zen-accent-primary-light)] dark:accent-[var(--color-zen-accent-primary-dark)]" />
-        <button onClick={stopAll} disabled={!activeSound}
-          className="px-2.5 py-1.5 rounded-lg text-[10px] font-medium bg-red-500 text-white hover:bg-red-600 transition-all disabled:opacity-30 disabled:cursor-default">
-          Stop
-        </button>
       </div>
     </div>
   );

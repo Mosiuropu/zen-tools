@@ -22,7 +22,8 @@ import {
   Watch,
   Palette,
   Globe,
-  Command
+  Command,
+  LayoutDashboard
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
@@ -42,9 +43,11 @@ import ZenStopwatch from './components/ZenStopwatch';
 import ZenColor from './components/ZenColor';
 import ZenWorldClock from './components/ZenWorldClock';
 import CommandPalette from './components/CommandPalette';
+import MobileMenu from './components/MobileMenu';
+import HomePage from './components/HomePage';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('units');
+  const [activeTab, setActiveTab] = useState('home');
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('zen_theme');
@@ -62,6 +65,7 @@ function App() {
   }, [isDark]);
 
   const tabs = [
+    { id: 'home', label: 'Home', icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: 'units', label: 'Units', icon: <Ruler className="w-4 h-4" /> },
     { id: 'age', label: 'Age', icon: <Calendar className="w-4 h-4" /> },
     { id: 'habits', label: 'Habits', icon: <CheckCircle2 className="w-4 h-4" /> },
@@ -82,7 +86,7 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col font-mono transition-colors duration-200">
+    <div id="app-root" className="min-h-screen flex flex-col font-mono transition-colors duration-200">
       {/* Header */}
       <header className="border-b border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] bg-[var(--color-zen-bg-light)]/80 dark:bg-[var(--color-zen-bg-dark)]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -142,31 +146,36 @@ function App() {
       {/* Main Content */}
       <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 py-8 md:py-12">
         <div className="mb-10 space-y-2">
-          <h2 className="text-xl md:text-2xl font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] tracking-tight">
-            {activeTab === 'units' && "Convert units seamlessly."}
-            {activeTab === 'age' && "Compare ages with precision."}
-            {activeTab === 'countdown' && "Track your next milestone."}
-            {activeTab === 'habits' && "Master your daily routines."}
-            {activeTab === 'focus' && "Enter a state of deep focus."}
-            {activeTab === 'notes' && "Capture your thoughts."}
-            {activeTab === 'priorities' && "Focus on what truly matters."}
-            {activeTab === 'breathing' && "Take a moment to reset."}
-            {activeTab === 'sounds' && "Curate your ambient workspace."}
-            {activeTab === 'clock' && "Master your current moment."}
-            {activeTab === 'worldclock' && "Keep time across the world."}
-            {activeTab === 'stopwatch' && "Measure every passing second."}
-            {activeTab === 'timeline' && "Visualize your year."}
-            {activeTab === 'password' && "Generate strong, private passwords."}
-            {activeTab === 'text' && "Inspect and reshape your text."}
-            {activeTab === 'color' && "Build a palette you love."}
-            {activeTab === 'settings' && "Manage your local data."}
-          </h2>
-          <p className="text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] text-xs md:text-sm">
-            Minimal. Local. Ad-free.
-          </p>
+          {activeTab !== 'home' && (
+            <>
+              <h2 className="text-xl md:text-2xl font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] tracking-tight">
+                {activeTab === 'units' && "Convert units seamlessly."}
+                {activeTab === 'age' && "Compare ages with precision."}
+                {activeTab === 'countdown' && "Track your next milestone."}
+                {activeTab === 'habits' && "Master your daily routines."}
+                {activeTab === 'focus' && "Enter a state of deep focus."}
+                {activeTab === 'notes' && "Capture your thoughts."}
+                {activeTab === 'priorities' && "Focus on what truly matters."}
+                {activeTab === 'breathing' && "Take a moment to reset."}
+                {activeTab === 'sounds' && "Curate your ambient workspace."}
+                {activeTab === 'clock' && "Master your current moment."}
+                {activeTab === 'worldclock' && "Keep time across the world."}
+                {activeTab === 'stopwatch' && "Measure every passing second."}
+                {activeTab === 'timeline' && "Visualize your year."}
+                {activeTab === 'password' && "Generate strong, private passwords."}
+                {activeTab === 'text' && "Inspect and reshape your text."}
+                {activeTab === 'color' && "Build a palette you love."}
+                {activeTab === 'settings' && "Manage your local data."}
+              </h2>
+              <p className="text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] text-xs md:text-sm">
+                Minimal. Local. Ad-free.
+              </p>
+            </>
+          )}
         </div>
 
         <div className="animate-in fade-in duration-300">
+          {activeTab === 'home' && <HomePage onNavigate={setActiveTab} isDark={isDark} onToggleTheme={() => setIsDark(!isDark)} />}
           {activeTab === 'units' && <UnitConverter />}
           {activeTab === 'age' && <AgeCalculator />}
           {activeTab === 'countdown' && <CountdownTimer />}
@@ -187,26 +196,17 @@ function App() {
         </div>
       </main>
 
-      {/* Mobile Nav */}
-      <nav className="xl:hidden fixed bottom-4 left-4 right-4 bg-[var(--color-zen-bg-light)]/90 dark:bg-[var(--color-zen-bg-dark)]/90 backdrop-blur-md border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] p-1.5 rounded-md flex justify-start sm:justify-center shadow-lg z-50 overflow-x-auto no-scrollbar gap-1">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex flex-col items-center justify-center gap-1 p-2 min-w-[56px] rounded-md transition-all ${
-              activeTab === tab.id
-                ? 'zen-card text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
-                : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'
-            }`}
-          >
-            {tab.icon}
-            <span className="text-[9px] font-medium tracking-wide">{tab.label}</span>
-          </button>
-        ))}
-      </nav>
+      {/* Mobile Menu (Hamburger) */}
+      <MobileMenu
+        tabs={tabs}
+        activeTab={activeTab}
+        onSelect={setActiveTab}
+        isDark={isDark}
+        onToggleTheme={() => setIsDark(!isDark)}
+      />
 
       {/* Footer */}
-      <footer className="py-6 border-t border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] mt-auto mb-20 xl:mb-0">
+      <footer className="py-6 border-t border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] mt-auto">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2 text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] text-xs font-medium">
             <Shield className="w-3 h-3" />

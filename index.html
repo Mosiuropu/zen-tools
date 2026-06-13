@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Zen Tools 🧘‍♂️</title>
     <style>
-      /* Inline fallback styles before CSS loads */
-      body { margin: 0; background: #E2D9C8; color: #1C1612; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-      @media (prefers-color-scheme: dark) {
-        body { background: #08080C; color: #ECECF2; }
-      }
+      /* Inline fallback before CSS loads. Uses background-color (not the
+         background shorthand) so Tailwind's radial gradients survive, and
+         follows the app's .dark class instead of the OS color scheme. */
+      body { margin: 0; background-color: #F6F5F1; color: #1A1A1E; }
+      html.dark body { background-color: #0B0B12; color: #EEEEF5; }
     </style>
+    <script>
+      // Apply saved theme before first paint to avoid a flash. Default: dark.
+      (function () {
+        try {
+          var t = localStorage.getItem('zen_theme');
+          if (t ? t === 'dark' : true) document.documentElement.classList.add('dark');
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root">

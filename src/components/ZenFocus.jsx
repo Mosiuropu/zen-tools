@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Brain, Volume2, VolumeX, Settings2 } from 'lucide-react';
+import { Play, Pause, RotateCcw, Brain, Volume2, VolumeX, Zap } from 'lucide-react';
 
 const MODES = {
-  focus: { label: 'Focus', minutes: 25, color: 'text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-accent-primary)]', bg: 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/10 dark:bg-orange-500/10', border: 'border-blue-600 dark:border-orange-500' },
-  short: { label: 'Short Break', minutes: 5, color: 'text-emerald-600 dark:text-emerald-500', bg: 'bg-emerald-600/10 dark:bg-emerald-500/10', border: 'border-emerald-600 dark:border-emerald-500' },
-  long: { label: 'Long Break', minutes: 15, color: 'text-violet-600 dark:text-violet-500', bg: 'bg-violet-600/10 dark:bg-violet-500/10', border: 'border-violet-600 dark:border-violet-500' }
+  focus: { label: 'Focus', minutes: 25, ring: '#E5484D' },
+  short: { label: 'Short Break', minutes: 5, ring: '#2DB39B' },
+  long: { label: 'Long Break', minutes: 15, ring: '#9B6DF2' },
 };
 
 export default function ZenFocus() {
@@ -25,9 +25,7 @@ export default function ZenFocus() {
 
   useEffect(() => {
     if (isActive && timeLeft > 0) {
-      timerRef.current = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
+      timerRef.current = setInterval(() => setTimeLeft((p) => p - 1), 1000);
     } else if (timeLeft === 0) {
       handleComplete();
     } else {
@@ -39,126 +37,138 @@ export default function ZenFocus() {
   const handleComplete = () => {
     setIsActive(false);
     clearInterval(timerRef.current);
-    
     if (soundEnabled) {
       const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-      audio.play().catch(e => console.log('Audio play failed'));
+      audio.play().catch(() => {});
     }
-
     if (mode === 'focus') {
-      setSessionCount(prev => prev + 1);
-      const nextMode = (sessionCount + 1) % 4 === 0 ? 'long' : 'short';
-      switchMode(nextMode);
+      setSessionCount((p) => p + 1);
+      switchMode((sessionCount + 1) % 4 === 0 ? 'long' : 'short');
     } else {
       switchMode('focus');
     }
-
-    if (autoStart) {
-      setTimeout(() => setIsActive(true), 1000);
-    }
+    if (autoStart) setTimeout(() => setIsActive(true), 1000);
   };
 
-  const switchMode = (newMode) => {
-    setMode(newMode);
-    setTimeLeft(MODES[newMode].minutes * 60);
+  const switchMode = (m) => {
+    setMode(m);
+    setTimeLeft(MODES[m].minutes * 60);
     setIsActive(false);
   };
-
-  const toggleTimer = () => setIsActive(!isActive);
 
   const resetTimer = () => {
     setIsActive(false);
     setTimeLeft(MODES[mode].minutes * 60);
   };
 
-  const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s < 10 ? '0' : ''}${s}`;
-  };
+  const formatTime = (s) => `${Math.floor(s / 60)}:${s % 60 < 10 ? '0' : ''}${s % 60}`;
+  const total = MODES[mode].minutes * 60;
+  const progress = 1 - timeLeft / total;
+  const R = 118;
+  const CIRC = 2 * Math.PI * R;
 
   return (
-    <div className="max-w-xl mx-auto space-y-12 animate-in fade-in zoom-in-95 duration-700">
-      <div className="flex justify-center gap-4">
+    <div className="max-w-md mx-auto space-y-5 animate-fade-up">
+      {/* Mode chips */}
+      <div className="flex justify-center gap-2">
         {Object.entries(MODES).map(([key, data]) => (
           <button
             key={key}
             onClick={() => switchMode(key)}
-            className={`px-6 py-2 rounded-md font-semibold text-sm transition-all ${
-              mode === key 
-                ? `${data.bg} ${data.color}` 
-                : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]0 hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] dark:hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] shadow-sm border border-stone-100 dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]'
-            }`}
+            className="zen-chip"
+            style={
+              mode === key
+                ? { background: `${data.ring}1a`, color: data.ring, borderColor: data.ring }
+                : { borderColor: 'var(--color-zen-border-light)', color: 'var(--color-zen-muted-light)' }
+            }
           >
             {data.label}
           </button>
         ))}
       </div>
 
-      <div className={`bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-4 ${MODES[mode].border} border-opacity-20 rounded-[4rem] p-16 shadow-2xl flex flex-col items-center space-y-10 transition-all duration-500`}>
-        <div className="text-center space-y-2">
-          <div className="text-4xl font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)] tabular-nums tracking-tighter">
-            {formatTime(timeLeft)}
+      {/* Tomato */}
+      <div className="relative flex flex-col items-center">
+        <div className={`relative ${isActive ? 'animate-tomato' : ''}`}>
+          {/* Stem + leaves */}
+          <svg width="80" height="36" viewBox="0 0 80 36" className="mx-auto -mb-2 relative z-10">
+            <path d="M40 30 Q38 14 40 4" stroke="#3E7C3A" strokeWidth="5" fill="none" strokeLinecap="round" />
+            <path d="M40 18 Q24 8 12 16 Q24 26 40 20 Z" fill="#4C9A45" />
+            <path d="M40 18 Q56 8 68 16 Q56 26 40 20 Z" fill="#5BAE52" />
+          </svg>
+
+          {/* Tomato body with progress ring */}
+          <div
+            className="relative w-64 h-64 rounded-full shadow-2xl"
+            style={{
+              background: 'radial-gradient(circle at 32% 28%, #FF7B72 0%, #F0473F 45%, #C92F2B 100%)',
+              boxShadow: '0 20px 50px -12px rgba(229,72,77,0.5), inset 0 -14px 28px rgba(0,0,0,0.18), inset 0 10px 20px rgba(255,255,255,0.25)',
+            }}
+          >
+            {/* highlight */}
+            <div className="absolute top-7 left-10 w-16 h-9 rounded-full bg-white/30 blur-md rotate-[-20deg]" />
+
+            {/* progress ring */}
+            <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 256 256">
+              <circle cx="128" cy="128" r={R} stroke="rgba(255,255,255,0.25)" strokeWidth="6" fill="none" />
+              <circle
+                cx="128" cy="128" r={R}
+                stroke="#FFF4D6" strokeWidth="6" fill="none" strokeLinecap="round"
+                strokeDasharray={CIRC}
+                strokeDashoffset={CIRC * (1 - progress)}
+                style={{ transition: 'stroke-dashoffset 1s linear' }}
+              />
+            </svg>
+
+            {/* time */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+              <span className="text-6xl font-bold tabular-nums tracking-tight drop-shadow-md">{formatTime(timeLeft)}</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-80 mt-1">
+                {mode === 'focus' ? 'Deep Work' : 'Rest'}
+              </span>
+            </div>
           </div>
-          <p className={`font-semibold uppercase tracking-[0.3em] text-sm ${MODES[mode].color}`}>
-            {mode === 'focus' ? 'Deep Work Phase' : 'Resting Phase'}
-          </p>
         </div>
 
-        <div className="flex items-center gap-8">
-          <button
-            onClick={resetTimer}
-            className="p-4 rounded-md bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] hover:bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)] dark:hover:bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)] transition-all"
-          >
-            <RotateCcw className="w-8 h-8" />
+        {/* Controls */}
+        <div className="flex items-center gap-5 -mt-7 relative z-10">
+          <button onClick={resetTimer} className="zen-btn-secondary p-3" title="Reset">
+            <RotateCcw className="w-5 h-5" />
           </button>
-
           <button
-            onClick={toggleTimer}
-            className={`w-24 h-24 rounded-md flex items-center justify-center transition-all active:scale-90 shadow-2xl ${
-              isActive 
-                ? 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]' 
-                : 'zen-btn-primary'
-            }`}
+            onClick={() => setIsActive(!isActive)}
+            className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-xl active:scale-90 transition-all"
+            style={{ background: isActive ? '#1A1A1E' : MODES[mode].ring }}
           >
-            {isActive ? <Pause className="w-10 h-10 fill-current" /> : <Play className="w-10 h-10 fill-current ml-1" />}
+            {isActive ? <Pause className="w-7 h-7 fill-current" /> : <Play className="w-7 h-7 fill-current ml-1" />}
           </button>
-
-          <button
-            onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-4 rounded-md bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)] hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:hover:text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] hover:bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)] dark:hover:bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)] transition-all"
-          >
-            {soundEnabled ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
+          <button onClick={() => setSoundEnabled(!soundEnabled)} className="zen-btn-secondary p-3" title="Sound">
+            {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
-        <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)]/50 border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-md p-6 flex items-center gap-4 shadow-sm">
-          <div className="p-3 bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/10 dark:bg-orange-500/10 rounded-md text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-accent-primary)]">
-            <Brain className="w-6 h-6" />
+      {/* Stats row */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="zen-card px-4 py-3 flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-[var(--color-zen-rose)]/10 text-[var(--color-zen-rose)]">
+            <Brain className="w-4 h-4" />
           </div>
           <div>
-            <div className="text-sm font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]">{sessionCount}</div>
-            <div className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]0">Total Pomodoros</div>
+            <div className="text-lg font-semibold leading-none">{sessionCount}</div>
+            <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] mt-0.5">Pomodoros</div>
           </div>
         </div>
-
         <button
           onClick={() => setAutoStart(!autoStart)}
-          className={`bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)]/50 border rounded-md p-6 flex items-center justify-between transition-all shadow-sm ${autoStart ? 'border-blue-600/50 dark:border-orange-500/50' : 'border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)]'}`}
+          className={`zen-card px-4 py-3 flex items-center gap-3 transition-all ${autoStart ? 'ring-2 ring-[var(--color-zen-teal)]/50' : ''}`}
         >
-          <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-md ${autoStart ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/20 dark:bg-orange-500/20 text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]' : 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]'}`}>
-              <Settings2 className="w-6 h-6" />
-            </div>
-            <div className="text-left">
-              <div className={`text-sm font-semibold ${autoStart ? 'text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]' : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]0'}`}>Auto-Transition</div>
-              <div className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-muted-dark)]">{autoStart ? 'Enabled' : 'Disabled'}</div>
-            </div>
+          <div className={`p-2 rounded-lg ${autoStart ? 'bg-[var(--color-zen-teal)]/10 text-[var(--color-zen-teal)]' : 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
+            <Zap className="w-4 h-4" />
           </div>
-          <div className={`w-10 h-6 rounded-md p-1 transition-all ${autoStart ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]' : 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)]'}`}>
-            <div className={`w-4 h-4 bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)] rounded-md transition-all ${autoStart ? 'translate-x-4' : 'translate-x-0'}`} />
+          <div className="text-left">
+            <div className="text-xs font-semibold leading-none">Auto-start</div>
+            <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] mt-0.5">{autoStart ? 'On' : 'Off'}</div>
           </div>
         </button>
       </div>

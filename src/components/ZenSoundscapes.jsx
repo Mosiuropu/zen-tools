@@ -1,12 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX, CloudRain, Wind, Waves, Coffee, Trees as Forest, Zap } from 'lucide-react';
+import { Volume2, VolumeX, CloudRain, Wind, Waves, Coffee, Trees as Forest, Zap, Music, ExternalLink, Radio, Headphones, Moon, Piano } from 'lucide-react';
 
 const SOUNDS = [
-  { id: 'rain', name: 'Rainfall', icon: <CloudRain />, url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' }, // Placeholders, but I'll use pure noise synths for better "Zen"
-  { id: 'ocean', name: 'Ocean Waves', icon: <Waves />, type: 'ocean' },
-  { id: 'forest', name: 'Deep Forest', icon: <Forest />, type: 'forest' },
-  { id: 'white', name: 'White Noise', icon: <Zap />, type: 'white' },
-  { id: 'cafe', name: 'Zen Cafe', icon: <Coffee />, type: 'cafe' },
+  { id: 'rain', name: 'Rainfall', icon: CloudRain, color: '#4FA3F2' },
+  { id: 'ocean', name: 'Ocean', icon: Waves, color: '#2DB39B' },
+  { id: 'forest', name: 'Forest', icon: Forest, color: '#5BAE52' },
+  { id: 'white', name: 'White Noise', icon: Zap, color: '#9B6DF2' },
+  { id: 'cafe', name: 'Zen Cafe', icon: Coffee, color: '#F2A93B' },
+];
+
+const MUSIC_LINKS = [
+  { name: 'Lofi Girl — beats to relax/study', url: 'https://www.youtube.com/watch?v=jfKfPfyJRdk', icon: Headphones, color: '#9B6DF2' },
+  { name: 'Chillhop Radio', url: 'https://www.youtube.com/watch?v=5yx6BWlEVcY', icon: Radio, color: '#F2A93B' },
+  { name: 'Deep Focus — Spotify', url: 'https://open.spotify.com/playlist/37i9dQZF1DWZeKCadgRdKQ', icon: Music, color: '#2DB39B' },
+  { name: 'Peaceful Piano — Spotify', url: 'https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO', icon: Piano, color: '#4FA3F2' },
+  { name: 'Sleep — Spotify', url: 'https://open.spotify.com/playlist/37i9dQZF1DWZd79rJ6a7lp', icon: Moon, color: '#F26D6D' },
+  { name: 'Ambient Worlds — YouTube', url: 'https://www.youtube.com/c/AmbientWorlds', icon: Wind, color: '#5BAE52' },
 ];
 
 export default function ZenSoundscapes() {
@@ -15,7 +24,6 @@ export default function ZenSoundscapes() {
   const audioCtx = useRef(null);
   const nodes = useRef({});
 
-  // Initialize Web Audio API for synthetic sounds
   useEffect(() => {
     return () => {
       if (audioCtx.current) {
@@ -47,14 +55,13 @@ export default function ZenSoundscapes() {
     whiteNoise.loop = true;
 
     const filter = audioCtx.current.createBiquadFilter();
-    
+
     if (type === 'white') {
       filter.type = 'lowpass';
       filter.frequency.value = 20000;
     } else if (type === 'ocean') {
       filter.type = 'lowpass';
       filter.frequency.value = 500;
-      // Add LFO for wave effect
       const lfo = audioCtx.current.createOscillator();
       const lfoGain = audioCtx.current.createGain();
       lfo.frequency.value = 0.1;
@@ -66,6 +73,9 @@ export default function ZenSoundscapes() {
     } else if (type === 'forest' || type === 'rain') {
       filter.type = 'lowpass';
       filter.frequency.value = 1000;
+    } else if (type === 'cafe') {
+      filter.type = 'bandpass';
+      filter.frequency.value = 800;
     }
 
     const gainNode = audioCtx.current.createGain();
@@ -76,7 +86,7 @@ export default function ZenSoundscapes() {
     gainNode.connect(audioCtx.current.destination);
 
     whiteNoise.start();
-    
+
     nodes.current.source = whiteNoise;
     nodes.current.gain = gainNode;
     setActiveSound(type);
@@ -91,6 +101,7 @@ export default function ZenSoundscapes() {
       nodes.current.lfo.stop();
       nodes.current.lfo.disconnect();
     }
+    nodes.current = {};
     setActiveSound(null);
   };
 
@@ -103,72 +114,101 @@ export default function ZenSoundscapes() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in duration-700">
-      <div className="text-center space-y-4">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-[var(--color-zen-accent-primary)]">Synthetic Zen</h3>
-        <p className="text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)]0 dark:text-[var(--color-zen-text-dark)] max-w-md mx-auto">
-          Pure, algorithmically generated soundscapes. No loops, no gaps, just infinite focus.
-        </p>
+    <div className="max-w-3xl mx-auto space-y-5 animate-fade-up">
+      {/* Sound tiles */}
+      <div className="grid grid-cols-3 md:grid-cols-5 gap-3">
+        {SOUNDS.map((sound) => {
+          const Icon = sound.icon;
+          const active = activeSound === sound.id;
+          return (
+            <button
+              key={sound.id}
+              onClick={() => (active ? stopAll() : startNoise(sound.id))}
+              className={`zen-card flex flex-col items-center gap-2 px-3 py-4 transition-all hover:-translate-y-0.5 ${active ? 'ring-2 scale-[1.03]' : ''}`}
+              style={active ? { '--tw-ring-color': sound.color } : undefined}
+            >
+              <div
+                className="p-2.5 rounded-xl transition-all"
+                style={{
+                  background: `color-mix(in srgb, ${sound.color} ${active ? 18 : 10}%, transparent)`,
+                  color: sound.color,
+                }}
+              >
+                <Icon className={`w-5 h-5 ${active ? 'animate-pulse-soft' : ''}`} />
+              </div>
+              <span className="text-[11px] font-semibold tracking-tight">{sound.name}</span>
+            </button>
+          );
+        })}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-        {SOUNDS.map((sound) => (
-          <button
-            key={sound.id}
-            onClick={() => activeSound === sound.id ? stopAll() : startNoise(sound.id)}
-            className={`flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 transition-all group ${
-              activeSound === sound.id 
-                ? 'zen-btn-primary border-orange-500 shadow-sm shadow-orange-900/40 scale-105' 
-                : 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:border-orange-500/50 hover:text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] dark:hover:text-stone-200'
-            }`}
+      {/* Compact control bar */}
+      <div className="zen-card px-5 py-4 flex flex-col sm:flex-row items-center gap-4">
+        <div className="flex items-center gap-3 sm:min-w-44">
+          <div
+            className={`p-2.5 rounded-xl ${activeSound ? 'animate-pulse-soft' : ''}`}
+            style={
+              activeSound
+                ? { background: `color-mix(in srgb, ${SOUNDS.find((s) => s.id === activeSound)?.color} 15%, transparent)`, color: SOUNDS.find((s) => s.id === activeSound)?.color }
+                : { background: 'var(--color-zen-bg-light)', color: 'var(--color-zen-muted-light)' }
+            }
           >
-            <div className={`p-4 rounded-md mb-4 transition-all ${activeSound === sound.id ? 'bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-card-dark)]/20' : 'bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] group-hover:scale-110'}`}>
-              {React.cloneElement(sound.icon, { className: "w-8 h-8" })}
+            {activeSound ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+          </div>
+          <div>
+            <div className="text-sm font-semibold leading-none">
+              {activeSound ? SOUNDS.find((s) => s.id === activeSound)?.name : 'Silent'}
             </div>
-            <span className="font-semibold text-sm tracking-tight">{sound.name}</span>
-          </button>
-        ))}
+            <div className="text-[9px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] mt-1">
+              {activeSound ? 'Now playing' : 'Pick a sound'}
+            </div>
+          </div>
+        </div>
+
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={handleVolumeChange}
+          className="flex-1 w-full h-2 rounded-full appearance-none cursor-pointer bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-border-dark)] accent-[var(--color-zen-accent-primary-light)] dark:accent-[var(--color-zen-accent-primary-dark)]"
+        />
+
+        <button
+          onClick={stopAll}
+          disabled={!activeSound}
+          className="zen-btn-secondary px-4 py-2 text-xs disabled:opacity-30 hover:text-[var(--color-zen-rose)]"
+        >
+          Stop
+        </button>
       </div>
 
-      <div className="bg-[var(--color-zen-card-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-card-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] dark:border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] rounded-[3rem] p-8 md:p-12 shadow-2xl space-y-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="flex items-center gap-6">
-             <div className={`p-5 rounded-md ${activeSound ? 'zen-btn-primary animate-pulse' : 'bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-bg-dark)] text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]'}`}>
-                {activeSound ? <Volume2 className="w-8 h-8" /> : <VolumeX className="w-8 h-8" />}
-             </div>
-             <div>
-               <h4 className="text-base font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] dark:text-[var(--color-zen-text-dark)]">
-                 {activeSound ? SOUNDS.find(s => s.id === activeSound)?.name : 'System Silent'}
-               </h4>
-               <p className="text-sm font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)]">
-                 {activeSound ? 'Active Soundscape' : 'Select a sound to begin'}
-               </p>
-             </div>
-          </div>
-
-          <div className="flex-1 w-full max-w-md space-y-3">
-             <div className="flex justify-between text-[10px] font-semibold uppercase tracking-widest text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] px-1">
-               <span>Mute</span>
-               <span>Intensity</span>
-             </div>
-             <input
-               type="range"
-               min="0"
-               max="1"
-               step="0.01"
-               value={volume}
-               onChange={handleVolumeChange}
-               className="w-full h-3 bg-[var(--color-zen-border-light)] dark:bg-[var(--color-zen-bg-dark)] dark:bg-[var(--color-zen-border-dark)] rounded-md appearance-none cursor-pointer accent-blue-600"
-             />
-          </div>
-
-          <button
-            onClick={stopAll}
-            disabled={!activeSound}
-            className="px-8 py-4 rounded-md bg-red-600 text-white hover:bg-red-700 dark:bg-red-500 dark:text-stone-950 dark:hover:bg-[var(--color-zen-border-dark)] font-medium transition-all disabled:opacity-0"
-          >
-            Stop All
-          </button>
+      {/* Music links */}
+      <div className="zen-card p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Music className="w-4 h-4 text-[var(--color-zen-violet)]" />
+          <h4 className="text-sm font-semibold">Focus music</h4>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-2">
+          {MUSIC_LINKS.map((m) => {
+            const Icon = m.icon;
+            return (
+              <a
+                key={m.url}
+                href={m.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-[var(--color-zen-bg-light)] dark:bg-[var(--color-zen-bg-dark)] border border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] hover:-translate-y-0.5 transition-all group"
+              >
+                <div className="p-1.5 rounded-lg" style={{ background: `color-mix(in srgb, ${m.color} 12%, transparent)`, color: m.color }}>
+                  <Icon className="w-4 h-4" />
+                </div>
+                <span className="flex-1 text-xs font-semibold truncate">{m.name}</span>
+                <ExternalLink className="w-3.5 h-3.5 text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+            );
+          })}
         </div>
       </div>
     </div>

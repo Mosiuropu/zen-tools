@@ -24,7 +24,9 @@ import React, { useState, useEffect } from 'react';import {
   Command,
   LayoutDashboard,
   History,
-  Quote
+  Quote,
+  MoreHorizontal,
+  ChevronDown
 } from 'lucide-react';
 import UnitConverter from './components/UnitConverter';
 import AgeCalculator from './components/AgeCalculator';
@@ -49,9 +51,21 @@ import HomePage from './components/HomePage';
 import ZenEvents from './components/ZenEvents';
 import ZenQuotes from './components/ZenQuotes';
 
+const PRIMARY_TAB_IDS = ['home', 'focus', 'habits', 'breathing', 'sounds', 'clock', 'countdown'];
+
 function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const moreRef = React.useRef(null);
+
+  useEffect(() => {
+    const onClick = (e) => {
+      if (moreRef.current && !moreRef.current.contains(e.target)) setMoreOpen(false);
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, []);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('zen_theme');
     return saved ? saved === 'dark' : true;
@@ -91,7 +105,7 @@ function App() {
   ];
 
   return (
-    <div id="app-root" className="min-h-screen flex flex-col font-mono transition-colors duration-200">
+    <div id="app-root" className="min-h-screen flex flex-col font-sans transition-colors duration-200">
       {/* Header */}
       <header className="border-b border-[var(--color-zen-border-light)] dark:border-[var(--color-zen-border-dark)] bg-[var(--color-zen-bg-light)]/80 dark:bg-[var(--color-zen-bg-dark)]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
@@ -104,14 +118,14 @@ function App() {
             </div>
           </div>
 
-          <nav className="hidden xl:flex items-center gap-1">
-            {tabs.map((tab) => (
+          <nav className="hidden lg:flex items-center gap-1">
+            {tabs.filter((t) => PRIMARY_TAB_IDS.includes(t.id)).map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs transition-all ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs transition-all ${
                   activeTab === tab.id
-                    ? 'zen-card shadow-sm font-medium text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
+                    ? 'zen-card shadow-sm font-semibold text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
                     : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
                 }`}
               >
@@ -119,6 +133,41 @@ function App() {
                 {tab.label}
               </button>
             ))}
+
+            {/* More dropdown */}
+            <div className="relative" ref={moreRef}>
+              <button
+                onClick={() => setMoreOpen((o) => !o)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs transition-all ${
+                  moreOpen || !PRIMARY_TAB_IDS.includes(activeTab)
+                    ? 'zen-card shadow-sm font-semibold text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
+                    : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
+                }`}
+              >
+                <MoreHorizontal className="w-4 h-4" />
+                More
+                <ChevronDown className={`w-3 h-3 transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {moreOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 zen-card shadow-xl p-2 grid grid-cols-2 gap-1 animate-fade-up z-50">
+                  {tabs.filter((t) => !PRIMARY_TAB_IDS.includes(t.id)).map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => { setActiveTab(tab.id); setMoreOpen(false); }}
+                      className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs transition-all text-left ${
+                        activeTab === tab.id
+                          ? 'bg-[var(--color-zen-accent-primary-light)]/10 dark:bg-[var(--color-zen-accent-primary-dark)]/10 font-semibold text-[var(--color-zen-accent-primary-light)] dark:text-[var(--color-zen-accent-primary-dark)]'
+                          : 'text-[var(--color-zen-muted-light)] dark:text-[var(--color-zen-muted-dark)] hover:bg-[var(--color-zen-border-light)] dark:hover:bg-[var(--color-zen-border-dark)]'
+                      }`}
+                    >
+                      {tab.icon}
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -149,8 +198,8 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 py-8 md:py-12">
-        <div className="mb-10 space-y-2">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 py-6 md:py-8">
+        <div className="mb-6 space-y-1">
           {activeTab !== 'home' && (
             <>
               <h2 className="text-xl md:text-2xl font-semibold text-[var(--color-zen-text-light)] dark:text-[var(--color-zen-text-dark)] tracking-tight">
